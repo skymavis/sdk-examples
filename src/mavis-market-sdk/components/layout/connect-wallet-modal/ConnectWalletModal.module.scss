@@ -1,0 +1,53 @@
+.modal {
+  padding-bottom: 20px;
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .button {
+      width: 20px;
+
+      svg {
+        height: 15px;
+      }
+    }
+
+    .invisibleButton {
+      visibility: hidden;
+    }
+  }
+
+  .modalBody {
+    .qrCode {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .orContainer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+
+      .line {
+        flex-grow: 1;
+        height: 1px;
+        background-color: gray;
+      }
+
+      .orText {
+        padding: 0 10px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .modalFooter {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

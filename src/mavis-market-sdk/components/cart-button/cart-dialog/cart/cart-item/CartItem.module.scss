@@ -1,0 +1,38 @@
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  background-color: none;
+
+  .detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .tokenImage {
+      border-radius: 10px;
+    }
+
+    .names {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .itemUnavailableText {
+        color: red;
+      }
+
+      .itemUpdatedText {
+        color: yellow;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+  }
+}

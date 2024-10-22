@@ -1,0 +1,30 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-height: 100vh;
+  padding: 24px;
+  max-width: 1600px;
+  margin: auto;
+
+  .header {
+    display: flex;
+
+    .logo {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background: linear-gradient(to right, #da2eef 0%, #0cbcf2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      border-radius: 10px;
+    }
+  }
+
+  .example {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  }
+}
