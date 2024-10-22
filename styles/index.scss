@@ -1,0 +1,29 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.wlg-dialog-root {
+  .wlg-dialog-wrap {
+    z-index: 99;
+  }
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  background-color: #0e1116;
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #353a45;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+body {
+  background: linear-gradient(120deg, rgb(36 45 57) 11.2%, rgb(16 37 60) 51.2%, rgb(0 0 0) 98.6%);
+}

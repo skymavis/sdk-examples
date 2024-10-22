@@ -1,0 +1,19 @@
+.buttonOptionContainer {
+  height: 60px;
+  padding-left: 12px;
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .icon {
+    border-radius: 5px;
+  }
+
+  &.buttonOption {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

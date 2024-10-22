@@ -1,0 +1,11 @@
+.layout {
+  .content {
+    min-height: calc(100vh - 48px);
+    padding: 90px 24px 24px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 100%;
+  }
+}
