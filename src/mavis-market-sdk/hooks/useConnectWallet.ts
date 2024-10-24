@@ -27,7 +27,7 @@ const wcOptions = {
 
 export const useConnectWallet = () => {
   const { publicRuntimeConfig } = getConfig();
-  const { chainId: chainIdFromConfig } = publicRuntimeConfig;
+  const { chainId: chainIdFromConfig, waypointClientId } = publicRuntimeConfig;
 
   const { connector, setConnectedChainId, setConnector, setConnectedAccount, setWalletProvider, clearData } =
     useConnectorStore();
@@ -68,7 +68,7 @@ export const useConnectWallet = () => {
 
   const connectWaypoint = async (autoConnect = false) => {
     try {
-      const connector = requestWaypointConnector({}, { chainId: chainIdFromConfig });
+      const connector = requestWaypointConnector({}, { chainId: chainIdFromConfig, clientId: waypointClientId });
       await handleConnect(connector, autoConnect);
     } catch (error) {
       console.error(error);
