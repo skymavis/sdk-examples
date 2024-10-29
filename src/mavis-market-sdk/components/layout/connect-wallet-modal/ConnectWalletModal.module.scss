@@ -20,11 +20,12 @@
   }
 
   .modalBody {
-    .qrCode {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    .connectByQrCode {
+      display: block;
+    }
+
+    .connectMobileWallet {
+      display: none;
     }
 
     .orContainer {
@@ -49,5 +50,23 @@
   .modalFooter {
     display: flex;
     justify-content: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    .modalBody {
+      .connectByQrCode {
+        display: none;
+      }
+
+      .connectMobileWallet {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

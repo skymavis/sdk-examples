@@ -178,7 +178,7 @@ const ListingModal: FC<ListingModalProps> = props => {
             </ModalBody>
             <ModalFooter>
               <WillRender when={isApproved}>
-                <ConnectWalletButton fullWidth isLoading={isLoading} color="primary" onClick={onConfirm}>
+                <ConnectWalletButton fullWidth isLoading={isLoading} color="primary" onPress={onConfirm}>
                   Confirm listing
                 </ConnectWalletButton>
               </WillRender>

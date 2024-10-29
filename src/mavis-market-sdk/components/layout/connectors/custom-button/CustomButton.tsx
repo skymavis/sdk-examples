@@ -3,25 +3,25 @@ import classNames from 'classnames';
 import { FC } from 'react';
 import Typography from 'src/components/typography/Typography';
 
-import styles from './ButtonOption.module.scss';
+import styles from './CustomButton.module.scss';
 
-interface ButtonOptionProps extends ButtonProps {
+interface CustomButtonProps extends ButtonProps {
   icon: string;
   subText?: string;
 }
 
-const ButtonOption: FC<ButtonOptionProps> = props => {
-  const { name, className, variant, icon, subText, onClick } = props;
+const CustomButton: FC<CustomButtonProps> = props => {
+  const { name, className, variant, icon, subText, onPress } = props;
 
   return (
     <div className={className}>
       <Button
         fullWidth
         variant={variant}
-        className={classNames(styles.buttonOptionContainer, styles.buttonOption)}
+        className={classNames(styles.customButtonContainer, styles.customButton)}
         startContent={<img className={styles.icon} src={icon} width={30} />}
         size="lg"
-        onClick={onClick}
+        onPress={onPress}
       >
         <div className={styles.textContainer}>
           <Typography bold>{name}</Typography>
@@ -34,4 +34,4 @@ const ButtonOption: FC<ButtonOptionProps> = props => {
   );
 };
 
-export default ButtonOption;
+export default CustomButton;

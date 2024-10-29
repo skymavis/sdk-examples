@@ -21,7 +21,7 @@ const AddToCartAction: FC<AddToCartActionProps> = props => {
   };
 
   return (
-    <Button isIconOnly variant="bordered" onClick={onAddToCart}>
+    <Button isIconOnly variant="bordered" onPress={onAddToCart}>
       <CustomShoppingCartAddIcon />
     </Button>
   );

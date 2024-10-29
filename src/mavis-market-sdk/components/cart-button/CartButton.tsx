@@ -39,7 +39,7 @@ const CartButton: FC = () => {
 
   return (
     <div className={Classes.cartButton}>
-      <Button isIconOnly variant="light" onClick={onClickCart}>
+      <Button isIconOnly variant="light" onPress={onClickCart}>
         <ShoppingCartSimpleIcon />
       </Button>
       <WillRender when={cartCount > 0}>

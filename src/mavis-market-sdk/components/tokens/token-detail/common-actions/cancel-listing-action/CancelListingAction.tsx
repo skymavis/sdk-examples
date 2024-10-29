@@ -43,7 +43,7 @@ const CancelListingAction: FC<CancelListingActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton color="primary" fullWidth isLoading={isCanceling} onClick={onCancelListing}>
+      <ConnectWalletButton color="primary" fullWidth isLoading={isCanceling} onPress={onCancelListing}>
         Cancel listing
       </ConnectWalletButton>
       <SuccessModal title="Cancel order successfully" isOpen={isOpenSuccessModal} onClose={onCloseSuccessModal} />

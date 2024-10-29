@@ -1,16 +1,13 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { examplesData } from 'src/common/examplesData';
+import { useCheckClient } from 'src/mavis-market-sdk/hooks/useCheckClient';
 
 import ExampleCard from './example-card/ExampleCard';
 
 import Classes from './Home.module.scss';
 
 const Home: FC = () => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { isClient } = useCheckClient();
 
   if (!isClient) {
     return null;

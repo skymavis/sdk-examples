@@ -26,5 +26,13 @@
   .example {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .example {
+      display: grid;
+      grid-template-columns: auto;
+    }
   }
 }

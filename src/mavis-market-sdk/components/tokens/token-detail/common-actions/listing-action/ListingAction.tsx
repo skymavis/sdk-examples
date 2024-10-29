@@ -36,7 +36,7 @@ const ListingAction: FC<ListingActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton fullWidth color="primary" onClick={onOpenListingModal}>
+      <ConnectWalletButton fullWidth color="primary" onPress={onOpenListingModal}>
         List
       </ConnectWalletButton>
       <ListingModal

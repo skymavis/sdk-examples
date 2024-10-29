@@ -36,7 +36,7 @@ const GiftAction: FC<GiftActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton variant="bordered" fullWidth onClick={onOpenGiftModal}>
+      <ConnectWalletButton variant="bordered" fullWidth onPress={onOpenGiftModal}>
         Gift
       </ConnectWalletButton>
       <GiftModal

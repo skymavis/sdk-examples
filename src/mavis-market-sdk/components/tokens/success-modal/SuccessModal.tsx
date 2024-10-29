@@ -25,7 +25,7 @@ const SuccessModal: FC<SuccessModalProps> = props => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button fullWidth color="primary" onClick={onClose}>
+              <Button fullWidth color="primary" onPress={onClose}>
                 Close
               </Button>
             </ModalFooter>

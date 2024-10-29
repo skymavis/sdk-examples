@@ -34,7 +34,7 @@ const ApproveAction: FC<ApproveActionProps> = props => {
   };
 
   return (
-    <ConnectWalletButton color="primary" isLoading={isApproving} fullWidth onClick={onApprove}>
+    <ConnectWalletButton color="primary" isLoading={isApproving} fullWidth onPress={onApprove}>
       Approve {symbol}
     </ConnectWalletButton>
   );

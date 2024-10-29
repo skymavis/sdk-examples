@@ -26,7 +26,7 @@ const SwapRonAction: FC = () => {
 
   return (
     <>
-      <ConnectWalletButton variant="bordered" fullWidth onClick={onOpenSwapRonModal}>
+      <ConnectWalletButton variant="bordered" fullWidth onPress={onOpenSwapRonModal}>
         Swap ron/wron
       </ConnectWalletButton>
       <SwapRonModal isOpen={isOpenSwapRonModal} onClose={onCloseSwapRonModal} onSwapSuccessfully={onOpenSuccessModal} />

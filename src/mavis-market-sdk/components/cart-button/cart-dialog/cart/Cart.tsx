@@ -222,7 +222,7 @@ const Cart: FC<CartProps> = props => {
               <div className={Classes.header}>
                 <Typography>My cart ({cartCount})</Typography>
                 <WillRender when={!isCartEmpty}>
-                  <Button onClick={handleClearCart}>Clear all</Button>
+                  <Button onPress={handleClearCart}>Clear all</Button>
                 </WillRender>
               </div>
             </ModalHeader>
@@ -280,7 +280,7 @@ const Cart: FC<CartProps> = props => {
                     isLoading={isLoading || isBuying}
                     fullWidth
                     color="primary"
-                    onClick={onBuy}
+                    onPress={onBuy}
                   >
                     {buySomeItemsText}
                   </ConnectWalletButton>

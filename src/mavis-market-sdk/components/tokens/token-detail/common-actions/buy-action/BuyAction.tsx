@@ -34,7 +34,7 @@ const BuyAction: FC<BuyActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton fullWidth color="primary" onClick={onOpenBuyModal}>
+      <ConnectWalletButton fullWidth color="primary" onPress={onOpenBuyModal}>
         Buy
       </ConnectWalletButton>
       <BuyModal

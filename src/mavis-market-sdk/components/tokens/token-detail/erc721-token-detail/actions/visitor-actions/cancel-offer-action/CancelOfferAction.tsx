@@ -42,7 +42,7 @@ const CancelOfferAction: FC<CancelOfferActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton fullWidth isLoading={isCanceling} variant="bordered" onClick={onCancelOffer}>
+      <ConnectWalletButton fullWidth isLoading={isCanceling} variant="bordered" onPress={onCancelOffer}>
         Cancel offer
       </ConnectWalletButton>
       <SuccessModal title="Cancel offer successfully" isOpen={isOpenSuccessModal} onClose={onCloseSuccessModal} />
