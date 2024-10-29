@@ -74,4 +74,12 @@
       width: 150px;
     }
   }
+
+  @media (max-width: 768px) {
+    .footer {
+      .tokenName {
+        width: 125px;
+      }
+    }
+  }
 }

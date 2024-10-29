@@ -13,7 +13,9 @@ const EmptyState: FC<EmptyStateProps> = props => {
   return (
     <div className={Classes.emptyState}>
       <img src="/static/images/not-found.png" className={Classes.image} />
-      <Typography size="medium">{text}</Typography>
+      <Typography size="small" className={Classes.text}>
+        {text}
+      </Typography>
     </div>
   );
 };

@@ -31,20 +31,22 @@ const VisitorActions: FC<VisitorActionsProps> = props => {
   return (
     <div className={Classes.visitorActions}>
       <WillRender when={hasOrder}>
-        <BuyAction order={order || ({} as Order)} tokenType={Erc.Erc721} />
+        <div className={Classes.actionsGroup}>
+          <BuyAction order={order || ({} as Order)} tokenType={Erc.Erc721} />
+          <WillRender when={tokenNotInCart}>
+            <AddToCartAction tokenData={tokenData} />
+          </WillRender>
+          <WillRender when={!tokenNotInCart}>
+            <DeleteCartAction tokenData={tokenData} />
+          </WillRender>
+        </div>
       </WillRender>
-      <WillRender when={!hasOffer}>
-        <MakeOfferAction tokenData={tokenData} />
-      </WillRender>
-      <SwapRonAction />
-      <WillRender when={!isEmpty(order)}>
-        <WillRender when={tokenNotInCart}>
-          <AddToCartAction tokenData={tokenData} />
+      <div className={Classes.actionsGroup}>
+        <WillRender when={!hasOffer}>
+          <MakeOfferAction tokenData={tokenData} />
         </WillRender>
-        <WillRender when={!tokenNotInCart}>
-          <DeleteCartAction tokenData={tokenData} />
-        </WillRender>
-      </WillRender>
+        <SwapRonAction />
+      </div>
     </div>
   );
 };

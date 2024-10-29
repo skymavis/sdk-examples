@@ -16,8 +16,10 @@ const RoninWalletConnectContent: FC<RoninWalletConnectContentProps> = props => {
   return (
     <div className={styles.roninMobileIconContainer}>
       <img className={styles.roninMobileIcon} src={DEFAULT_CONNECTORS_CONFIG.RONIN_WC.icon} />
-      <Typography size="medium">Opening Ronin Mobile</Typography>
-      <Typography color="gray">Confirm connection in Ronin Mobile</Typography>
+      <div className={styles.description}>
+        <Typography size="medium">Opening Ronin Mobile</Typography>
+        <Typography color="gray">Confirm connection in Ronin Mobile</Typography>
+      </div>
       <Link href={toDeepLink(uri)} className={styles.openAppButton}>
         Open App
       </Link>
