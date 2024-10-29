@@ -1,4 +1,4 @@
-# SDK example
+# Mavis SDK examples
 
 These are the SDK examples which include
 
