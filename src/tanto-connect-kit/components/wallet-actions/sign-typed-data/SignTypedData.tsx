@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import React, { FC, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import { ExternalProvider } from "@ethersproject/providers";
 import { Textarea } from "@nextui-org/input";
 import Button from "@components/button/Button";
@@ -9,16 +8,18 @@ import Button from "@components/button/Button";
 import styles from "./SignTypedData.module.scss";
 import { isNil } from "lodash";
 import WillRender from "@components/will-render/WillRender";
+import useConnectStore from "../../../stores/useConnectStore";
+import { ChainIds } from "@sky-mavis/tanto-connect";
 const SignTypedData: FC = () => {
-  const { connector } = useConnectorStore();
+  const { connector, chainId } = useConnectStore();
 
   const [signature, setSignature] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const domain = {
-    name: "MyDApp",
+    name: "TestDapp",
     version: "1",
-    chainId: 2020,
+    chainId: chainId || ChainIds.RoninTestnet,
     verifyingContract: "0x3b3adf1422f84254b7fbb0e7ca62bd0865133fe3",
   };
 

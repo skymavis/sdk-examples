@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import { truncateAddress } from "../../../../mavis-market-sdk/utils/addressUtil";
 import Button from "@components/button/Button";
 import Avatar from "boring-avatars";
@@ -7,9 +6,10 @@ import Typography from "@components/typography/Typography";
 
 import styles from "./ConnectedWallet.module.scss";
 import { isNil } from "lodash";
+import useConnectStore from "../../../stores/useConnectStore";
 
 const ConnectedWallet: FC = () => {
-  const { connector, account, chainId } = useConnectorStore();
+  const { connector, account, chainId } = useConnectStore();
   const [isCopied, setIdCopied] = useState(false);
 
   if (isNil(connector) || isNil(account)) return null;

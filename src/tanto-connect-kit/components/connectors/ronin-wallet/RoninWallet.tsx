@@ -1,104 +1,63 @@
-import {
-  ConnectorEvent,
-  DEFAULT_CONNECTORS_CONFIG,
-  IConnectResult,
-  requestRoninWalletConnector,
-} from "@sky-mavis/tanto-connect";
+import { DEFAULT_CONNECTORS_CONFIG } from "@sky-mavis/tanto-connect";
 import React, { FC, useEffect, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import ConnectButton from "../../connect-wallet/connect-button/ConnectButton";
 import WaitingWallet from "../../connect-wallet/waiting-wallet/WaitingWallet";
 import WillRender from "@components/will-render/WillRender";
-import styles from "./RoninWallet.module.scss";
 import ConnectedWallet from "../../connect-wallet/connected-wallet/ConnectedWallet";
+import useConnectStore from "../../../stores/useConnectStore";
 
-const configs = DEFAULT_CONNECTORS_CONFIG.RONIN_WALLET;
+import styles from "./RoninWallet.module.scss";
+import useTantoConnect from "../../../hooks/useTantoConnect";
+
+const roninWallet = DEFAULT_CONNECTORS_CONFIG.RONIN_WALLET;
 const RoninWallet: FC = () => {
   const {
-    connector,
-    setConnector,
-    isConnected,
-    setIsConnected,
-    setAccount,
-    setChainId,
-  } = useConnectorStore();
+    handleConnect,
+    findConnector,
+    connectors,
+    listenEvents,
+    removeListeners,
+  } = useTantoConnect();
+  const { connector, isConnected, setConnector } = useConnectStore();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
   const connectRoninWallet = () => {
-    setIsConnecting(true);
-    connector?.connect().finally(() => setIsConnecting(false));
-  };
-
-  const onConnect = (payload: IConnectResult) => {
-    // Workaround for Ronin Wallet when it resolves even if the user rejects the request
-    if (!payload.account) {
-      return;
+    if (connector) {
+      setIsConnecting(true);
+      setConnector(connector);
+      handleConnect(connector).finally(() => setIsConnecting(false));
     }
-    setIsConnected(true);
-    setAccount(payload.account);
-    setChainId(payload.chainId);
-  };
-
-  const onAccountChange = (accounts: string[]) => {
-    if (accounts.length > 0) {
-      setAccount(accounts[0]);
-      setIsConnected(true);
-    } else {
-      setIsConnected(false);
-    }
-  };
-
-  const onChainChanged = (chainId: number) => {
-    setChainId(chainId);
-  };
-
-  const onDisconnect = () => {
-    setIsConnected(false);
-    setAccount(null);
-    setChainId(null);
   };
 
   useEffect(() => {
-    const initializeConnector = async () => {
-      try {
-        const connector = await requestRoninWalletConnector();
-        setConnector(connector);
-        connector.autoConnect();
+    const roninWalletConnector = findConnector(roninWallet.name);
 
-        connector.on(ConnectorEvent.CONNECT, onConnect);
-        connector.on(ConnectorEvent.ACCOUNTS_CHANGED, onAccountChange);
-        connector.on(ConnectorEvent.CHAIN_CHANGED, onChainChanged);
-        connector.on(ConnectorEvent.DISCONNECT, onDisconnect);
-      } catch (error) {
-        console.error("[initialize_ronin_wallet_connector]", error);
-      }
-    };
+    if (roninWalletConnector) {
+      setConnector(roninWalletConnector);
+      listenEvents(roninWalletConnector);
+      roninWalletConnector.autoConnect();
+    }
 
-    initializeConnector();
-
-    return () => {
-      connector?.removeAllListeners();
-      setConnector(null);
-    };
-  }, []);
+    return () => removeListeners(roninWalletConnector);
+  }, [connectors]);
 
   return (
     <div className={styles.roninWallet}>
       <WillRender when={!isConnecting && !isConnected}>
         <ConnectButton
           onClick={connectRoninWallet}
-          icon={configs.icon}
-          text={configs.name}
+          icon={roninWallet.icon}
+          text={roninWallet.name}
           isRecent={true}
         />
       </WillRender>
 
-      <WillRender when={!!connector && isConnecting}>
+      <WillRender when={isConnecting}>
         <WaitingWallet
-          icon={configs.icon}
-          name={configs.name}
+          icon={roninWallet.icon}
+          name={roninWallet.name}
           onCancel={() => setIsConnecting(false)}
         />
       </WillRender>

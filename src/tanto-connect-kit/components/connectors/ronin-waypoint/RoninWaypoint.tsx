@@ -1,104 +1,64 @@
-import {
-  ConnectorEvent,
-  DEFAULT_CONNECTORS_CONFIG,
-  IConnectResult,
-  requestWaypointConnector,
-} from "@sky-mavis/tanto-connect";
-import React, { FC, useEffect } from "react";
+import { DEFAULT_CONNECTORS_CONFIG } from "@sky-mavis/tanto-connect";
+import React, { FC, useEffect, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import ConnectButton from "../../connect-wallet/connect-button/ConnectButton";
 import WaitingWallet from "../../connect-wallet/waiting-wallet/WaitingWallet";
 import WillRender from "@components/will-render/WillRender";
 
 import styles from "./RoninWaypoint.module.scss";
 import ConnectedWallet from "../../connect-wallet/connected-wallet/ConnectedWallet";
+import useConnectStore from "../../../stores/useConnectStore";
+import useTantoConnect from "../../../hooks/useTantoConnect";
 
-const defaultConfigs = DEFAULT_CONNECTORS_CONFIG.WAYPOINT;
+const roninWaypoint = DEFAULT_CONNECTORS_CONFIG.WAYPOINT;
 const RoninWaypoint: FC = () => {
   const {
-    connector,
-    setConnector,
-    isConnected,
-    setIsConnected,
-    setAccount,
-    setChainId,
-  } = useConnectorStore();
+    handleConnect,
+    findConnector,
+    connectors,
+    listenEvents,
+    removeListeners,
+  } = useTantoConnect();
+  const { connector, isConnected, setConnector } = useConnectStore();
 
-  const [connecting, setConnecting] = React.useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
-  const connectWallet = async () => {
-    setConnecting(true);
-    connector
-      ?.connect()
-      .catch(console.error)
-      .finally(() => setConnecting(false));
-  };
-
-  const onConnect = (payload: IConnectResult) => {
-    setIsConnected(true);
-    setAccount(payload.account);
-    setChainId(payload.chainId);
-  };
-
-  const onAccountChange = (accounts: string[]) => {
-    if (accounts.length > 0) {
-      setAccount(accounts[0]);
-      setIsConnected(true);
-    } else {
-      setIsConnected(false);
+  const connectWaypointWallet = async () => {
+    setIsConnecting(true);
+    if (connector) {
+      setConnector(connector);
+      handleConnect(connector).finally(() => setIsConnecting(false));
     }
   };
 
-  const onChainChanged = (chainId: number) => {
-    setChainId(chainId);
-  };
-
-  const onDisconnect = () => {
-    setIsConnected(false);
-    setAccount(null);
-    setChainId(null);
-  };
   useEffect(() => {
-    const initializeConnector = async () => {
-      try {
-        const connector = await requestWaypointConnector({}, { chainId: 2021 });
-        setConnector(connector);
-        connector.autoConnect();
+    const roninWaypointConnector = findConnector(roninWaypoint.name);
 
-        connector.on(ConnectorEvent.CONNECT, onConnect);
-        connector.on(ConnectorEvent.ACCOUNTS_CHANGED, onAccountChange);
-        connector.on(ConnectorEvent.CHAIN_CHANGED, onChainChanged);
-        connector.on(ConnectorEvent.DISCONNECT, onDisconnect);
-      } catch (error) {
-        console.error("[initialize_ronin_wallet_connector]", error);
-      }
-    };
+    if (roninWaypointConnector) {
+      setConnector(roninWaypointConnector);
+      listenEvents(roninWaypointConnector);
+      roninWaypointConnector.autoConnect();
+    }
 
-    initializeConnector();
-
-    return () => {
-      connector?.removeAllListeners();
-      setConnector(null);
-    };
-  }, []);
+    return () => removeListeners(roninWaypointConnector);
+  }, [connectors]);
 
   return (
     <div className={styles.roninWaypoint}>
-      <WillRender when={!connecting && !isConnected}>
+      <WillRender when={!isConnecting && !isConnected}>
         <ConnectButton
-          onClick={connectWallet}
-          icon={defaultConfigs.icon}
-          text={defaultConfigs.name}
+          onClick={connectWaypointWallet}
+          icon={roninWaypoint.icon}
+          text={roninWaypoint.name}
           isRecent={true}
         />
       </WillRender>
 
-      <WillRender when={!!connector && connecting}>
+      <WillRender when={!!connector && isConnecting}>
         <WaitingWallet
-          icon={defaultConfigs.icon}
-          name={defaultConfigs.name}
-          onCancel={() => setConnecting(false)}
+          icon={roninWaypoint.icon}
+          name={roninWaypoint.name}
+          onCancel={() => setIsConnecting(false)}
         />
       </WillRender>
 

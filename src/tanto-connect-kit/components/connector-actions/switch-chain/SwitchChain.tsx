@@ -1,23 +1,23 @@
 import React, { FC, useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { CHAINS_CONFIG } from "@sky-mavis/tanto-connect";
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import { isNil } from "lodash";
 import Button from "@components/button/Button";
 
 import styles from "./Swithchain.module.scss";
+import useConnectStore from "../../../stores/useConnectStore";
 
 const SwitchChain: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedChainId, setSelectedChainId] = useState<number | null>(null);
-  const connector = useConnectorStore((state) => state.connector);
+  const connector = useConnectStore((state) => state.connector);
 
   const switchChain = () => {
     if (selectedChainId) {
       setIsLoading(true);
       connector
         ?.switchChain(selectedChainId)
-        .catch(console.error)
+        .catch((error) => console.error("switch_chain", error))
         .finally(() => setIsLoading(false));
     }
   };

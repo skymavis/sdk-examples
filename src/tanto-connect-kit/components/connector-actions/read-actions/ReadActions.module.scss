@@ -1,7 +1,12 @@
 .readActions {
   display: flex;
+  flex-direction: column;
   gap: 8px;
 
+  .group {
+    display: flex;
+    gap: 8px;
+  }
   .action {
     width: 200px;
   }

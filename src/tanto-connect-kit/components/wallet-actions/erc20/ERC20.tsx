@@ -1,21 +1,31 @@
 import { Input } from "@nextui-org/react";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import styles from "./ERC20.module.scss";
-import { defaultConfigs } from "../../../common/constant";
 import SendToken from "./send-token/SendToken";
+import useConnectStore from "../../../stores/useConnectStore";
+import ApproveToken from "./approve-token/ApproveToken";
+import { appConfigs } from "../../../common/constant";
 
 const ERC20: FC = () => {
-  const { chainId, isConnected } = useConnectorStore();
-  const [recipient, setRecipient] = React.useState(defaultConfigs.recipient);
-  const [amount, setAmount] = React.useState(defaultConfigs.amount);
+  const { chainId } = useConnectStore();
+
+  const [recipient, setRecipient] = React.useState(appConfigs.recipient);
+  const [amount, setAmount] = React.useState(appConfigs.amount);
   const [tokenAddress, setTokenAddress] = useState(
-    chainId ? defaultConfigs.erc20[chainId] : ""
+    chainId ? appConfigs.erc20[chainId] : ""
   );
 
+  useEffect(() => {
+    if (chainId && appConfigs.erc20[chainId]) {
+      setTokenAddress(appConfigs.erc20[chainId]);
+    } else {
+      setTokenAddress("");
+    }
+  }, [chainId]);
+
   return (
-    <div className={styles.erc20}>
+    <div className={styles.erc20} key={chainId}>
       <Input
         onValueChange={setTokenAddress}
         label={"Token Address"}
@@ -36,6 +46,12 @@ const ERC20: FC = () => {
       />
 
       <SendToken
+        tokenAddress={tokenAddress}
+        amount={amount}
+        recipient={recipient}
+      />
+
+      <ApproveToken
         tokenAddress={tokenAddress}
         amount={amount}
         recipient={recipient}

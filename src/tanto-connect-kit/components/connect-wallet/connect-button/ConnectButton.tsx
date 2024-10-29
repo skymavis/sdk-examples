@@ -9,13 +9,14 @@ import WillRender from "@components/will-render/WillRender";
 interface IPropsType {
   text: string;
   icon?: string;
-  onClick: () => void;
+  onClick?: () => void;
   isRecent?: boolean;
   isLoading?: boolean;
 }
 
 const ConnectButton: FC<IPropsType> = (props) => {
-  const { text, icon, isRecent, onClick, isLoading } = props;
+  const { text, icon, isRecent, isLoading, onClick } = props;
+
   return (
     <div className={styles.connectWallet}>
       <Button

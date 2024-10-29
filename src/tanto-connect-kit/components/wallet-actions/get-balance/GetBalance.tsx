@@ -2,13 +2,15 @@ import { Input } from "@nextui-org/react";
 import { ethers } from "ethers";
 import React, { FC, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import Button from "@components/button/Button";
+
+import useConnectStore from "../../../stores/useConnectStore";
+import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
 
 import styles from "./GetBalance.module.scss";
 
 const GetBalance: FC = () => {
-  const { connector, isConnected } = useConnectorStore();
+  const { connector, isConnected } = useConnectStore();
   const [balance, setBalance] = React.useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -18,9 +20,7 @@ const GetBalance: FC = () => {
       const provider = await connector?.getProvider();
       if (!provider) return;
 
-      const web3Provider = new ethers.providers.Web3Provider(
-        provider as ethers.providers.ExternalProvider
-      );
+      const web3Provider = new Web3Provider(provider as ExternalProvider);
       const signer = web3Provider.getSigner();
       const address = await signer.getAddress();
 
@@ -29,7 +29,7 @@ const GetBalance: FC = () => {
 
       setBalance(balanceInEther);
     } catch (error) {
-      console.error(error);
+      console.error("get_balance", error);
     } finally {
       setIsLoading(false);
     }

@@ -1,13 +1,13 @@
 import { Input } from "@nextui-org/react";
 import React, { FC, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import Button from "@components/button/Button";
 
 import styles from "./RequestAccount.module.scss";
+import useConnectStore from "../../../stores/useConnectStore";
 
 const RequestAccount: FC = () => {
-  const connector = useConnectorStore((state) => state.connector);
+  const connector = useConnectStore((state) => state.connector);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [account, setAccount] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const RequestAccount: FC = () => {
     connector
       ?.requestAccounts()
       .then((accounts) => setAccount(accounts[0]))
-      .catch(console.error)
+      .catch((error) => console.error("request_account", error))
       .finally(() => setIsLoading(false));
   };
 

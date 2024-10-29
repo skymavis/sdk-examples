@@ -2,18 +2,20 @@ import { Input } from "@nextui-org/react";
 import { ethers } from "ethers";
 import React, { FC, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import Button from "@components/button/Button";
-import styles from "./SendNativeToken.module.scss";
 import WillRender from "@components/will-render/WillRender";
 import { isNil } from "lodash";
-import { defaultConfigs } from "../../../common/constant";
+import useConnectStore from "../../../stores/useConnectStore";
+import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+
+import styles from "./SendNativeToken.module.scss";
+import { appConfigs } from "../../../common/constant";
 
 const SendNativeToken: FC = () => {
-  const { connector, isConnected } = useConnectorStore();
+  const { connector, isConnected } = useConnectStore();
 
-  const [recipient, setRecipient] = useState(defaultConfigs.recipient);
-  const [amount, setAmount] = useState(defaultConfigs.amount);
+  const [recipient, setRecipient] = useState(appConfigs.recipient);
+  const [amount, setAmount] = useState(appConfigs.amount);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<string>();
@@ -21,9 +23,7 @@ const SendNativeToken: FC = () => {
   const sendNativeToken = async () => {
     setIsLoading(true);
     const provider = await connector?.getProvider();
-    const web3Provider = new ethers.providers.Web3Provider(
-      provider as ethers.providers.ExternalProvider
-    );
+    const web3Provider = new Web3Provider(provider as ExternalProvider);
     const signer = web3Provider.getSigner();
     const transaction = {
       to: recipient,

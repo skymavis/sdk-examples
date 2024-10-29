@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 
 import Button from "@components/button/Button";
 
-import styles from "./GetAccounts.module.scss";
+import styles from "./ReadActions.module.scss";
 import useConnectStore from "../../../stores/useConnectStore";
 
 enum ConnectorReadAction {
@@ -24,7 +24,7 @@ const initialData: Record<ConnectorReadAction, string> = {
   [ConnectorReadAction.IS_AUTHORIZED]: "",
 };
 
-const GetAccounts: FC = () => {
+const ReadActions: FC = () => {
   const connector = useConnectStore((state) => state.connector);
   const [actionLoading, setActionLoading] = useState<ConnectorReadAction[]>([]);
   const [connectorData, setConnectorData] = useState(initialData);
@@ -63,9 +63,9 @@ const GetAccounts: FC = () => {
   };
 
   return (
-    <div className={styles.getAccounts}>
+    <div className={styles.readActions}>
       {connectorActions.map((action, index) => (
-        <div key={index}>
+        <div key={index} className={styles.group}>
           <Input readOnly value={connectorData[action.key]} radius={"sm"} />
           <Button
             onClick={() => executeAction(action.key)}
@@ -82,4 +82,4 @@ const GetAccounts: FC = () => {
   );
 };
 
-export default GetAccounts;
+export default ReadActions;

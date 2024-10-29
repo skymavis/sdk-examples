@@ -1,17 +1,17 @@
-import { ethers } from "ethers";
 import React, { FC, useState } from "react";
 
-import { useConnectorStore } from "../../../hooks/useConnectStore";
-import { ExternalProvider } from "@ethersproject/providers";
 import { Textarea } from "@nextui-org/input";
 import Button from "@components/button/Button";
 
 import styles from "./SignSiwe.module.scss";
 import { isNil } from "lodash";
 import WillRender from "@components/will-render/WillRender";
+import useConnectStore from "../../../stores/useConnectStore";
+
+import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
 
 const SignSIWE: FC = () => {
-  const { connector, chainId, account, isConnected } = useConnectorStore();
+  const { connector, chainId, account, isConnected } = useConnectStore();
 
   const [signature, setSignature] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,8 +32,8 @@ const SignSIWE: FC = () => {
   async function signSIWE() {
     try {
       setIsLoading(true);
-      const provider = (await connector?.getProvider()) as ExternalProvider;
-      const web3Provider = new ethers.providers.Web3Provider(provider);
+      const provider = await connector?.getProvider();
+      const web3Provider = new Web3Provider(provider as ExternalProvider);
       const message = generateSiweMessage();
       console.log(message);
       const signer = web3Provider.getSigner();

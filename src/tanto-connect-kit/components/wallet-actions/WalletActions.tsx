@@ -8,6 +8,7 @@ import SignTypedData from "./sign-typed-data/SignTypedData";
 import styles from "../connector-actions/ConnectorActions.module.scss";
 import SignSIWE from "./sign-siwe/SignSiwe";
 import SendNativeToken from "./send-native-token/SendNativeToken";
+import ERC20 from "./erc20/ERC20";
 
 const walletActions = [
   {
@@ -39,6 +40,11 @@ const walletActions = [
     title: "Sign Transaction",
     subtitle: "Authorize and sign a transaction with your wallet.",
     content: <SignTransaction />,
+  },
+  {
+    title: "ERC20",
+    subtitle: "Transfer ERC20 tokens from your wallet to another address.",
+    content: <ERC20 />,
   },
 ];
 

@@ -4,7 +4,7 @@ import SwitchChain from "./switch-chain/SwitchChain";
 import RequestAccount from "./request-account/RequestAccount";
 
 import styles from "./ConnectorActions.module.scss";
-import GetAccounts from "./get-accounts/GetAccounts";
+import ReadActions from "./read-actions/ReadActions";
 const connectorActions = [
   {
     title: "Request Account",
@@ -18,9 +18,10 @@ const connectorActions = [
     content: <SwitchChain />,
   },
   {
-    title: "Get Accounts",
-    subtitle: "Retrieve a list of all accounts connected to the wallet.",
-    content: <GetAccounts />,
+    title: "Read Actions",
+    subtitle:
+      "View available actions that can be performed with the connector.",
+    content: <ReadActions />,
   },
 ];
 

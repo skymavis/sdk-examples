@@ -1,51 +1,50 @@
 import { Input } from "@nextui-org/react";
-import { ChainIds } from "@sky-mavis/tanto-connect";
-import { ethers } from "ethers";
 import { isNil } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 
 import { CheckIn__factory } from "../../../abis/types";
-import { useConnectorStore } from "../../../hooks/useConnectStore";
 import Button from "@components/button/Button";
 import styles from "./SignTransaction.module.scss";
 import WillRender from "@components/will-render/WillRender";
-import { defaultConfigs } from "../../../common/constant";
+import useConnectStore from "../../../stores/useConnectStore";
+
+import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+import { appConfigs } from "../../../common/constant";
+import { ChainIds } from "@sky-mavis/tanto-connect";
 
 const SignTransaction: FC = () => {
-  const { connector, isConnected, chainId, account } = useConnectorStore();
+  const { connector, isConnected, chainId, account } = useConnectStore();
 
   const [isLoadingStreak, setIsLoadingStreak] = useState(false);
   const [isCheckingIn, setIsCheckingIn] = useState(false);
+
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [streak, setStreak] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string>();
 
-  const createCheckInContract = useCallback(async () => {
-    if (!chainId || !defaultConfigs.checkin[chainId]) return;
+  const isDisabled =
+    !chainId ||
+    ![ChainIds.RoninMainnet, ChainIds.RoninTestnet].includes(chainId);
+
+  const createCheckInContract = async () => {
+    if (!chainId || !appConfigs.checkin[chainId]) return;
 
     const provider = await connector?.getProvider();
     if (provider) {
-      const web3Provider = new ethers.providers.Web3Provider(
-        provider as ethers.providers.ExternalProvider
-      );
+      const web3Provider = new Web3Provider(provider as ExternalProvider);
       const signer = web3Provider.getSigner();
-      return CheckIn__factory.connect(defaultConfigs.checkin[chainId], signer);
+      return CheckIn__factory.connect(appConfigs.checkin[chainId], signer);
     }
-  }, [connector, chainId]);
+  };
 
-  const fetchStreak = useCallback(async () => {
+  const fetchCurrentStreak = async () => {
+    if (!account) return;
+
     setIsLoadingStreak(true);
     try {
-      const accounts = await connector?.getAccounts();
-      if (!accounts?.[0]) return;
-
       const checkInContract = await createCheckInContract();
-      const currentStreak = await checkInContract?.getCurrentStreak(
-        accounts[0]
-      );
-      const isCheckedInToday = await checkInContract?.isCheckedInToday(
-        accounts[0]
-      );
+      const currentStreak = await checkInContract?.getCurrentStreak(account);
+      const isCheckedInToday = await checkInContract?.isCheckedInToday(account);
 
       setTimeLeft(isCheckedInToday ? calculateTimeLeftToMidnight() : null);
       setStreak(String(currentStreak));
@@ -54,19 +53,16 @@ const SignTransaction: FC = () => {
     } finally {
       setIsLoadingStreak(false);
     }
-  }, [connector, createCheckInContract]);
+  };
 
   const checkIn = async () => {
+    if (!account) return;
     setIsCheckingIn(true);
     try {
-      const accounts = await connector?.getAccounts();
-      if (!accounts?.[0]) return;
-
       const checkInContract = await createCheckInContract();
-      const tx = await checkInContract?.checkIn(accounts[0]);
-
+      const tx = await checkInContract?.checkIn(account);
       setTxHash(tx?.hash || "");
-      await fetchStreak();
+      await fetchCurrentStreak();
     } catch (err) {
       console.error("Error during check-in:", err);
     } finally {
@@ -93,22 +89,22 @@ const SignTransaction: FC = () => {
   }, [timeLeft]);
 
   useEffect(() => {
-    fetchStreak();
-  }, [account, chainId, fetchStreak]);
+    fetchCurrentStreak();
+  }, [account, chainId]);
 
   return (
     <div className={styles.signTransaction}>
       <div className={styles.group}>
         <Input
           className={styles.input}
-          value={streak || ""}
+          value={isDisabled ? "Only available on Ronin network" : streak || ""}
           disabled
           radius={"sm"}
         />
         <Button
-          disabled={!isConnected}
+          disabled={!isConnected || isDisabled}
           isLoading={isLoadingStreak}
-          onClick={fetchStreak}
+          onClick={fetchCurrentStreak}
           className={styles.action}
           color={"primary"}
           radius={"sm"}
