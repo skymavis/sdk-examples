@@ -220,7 +220,7 @@ const Erc1155BuyModal: FC<Erc1155BuyModalProps> = props => {
                 />
               </WillRender>
               <WillRender when={isEmpty(tokensNeedToApprove)}>
-                <ConnectWalletButton isLoading={isLoading || isBuying} fullWidth color="primary" onClick={onBuy}>
+                <ConnectWalletButton isLoading={isLoading || isBuying} fullWidth color="primary" onPress={onBuy}>
                   Buy
                 </ConnectWalletButton>
               </WillRender>

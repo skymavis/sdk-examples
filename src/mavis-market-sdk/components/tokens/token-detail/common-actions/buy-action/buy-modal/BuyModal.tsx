@@ -202,7 +202,7 @@ const BuyModal: FC<BuyModalProps> = props => {
                 />
               </WillRender>
               <WillRender when={isEmpty(tokensNeedToApprove)}>
-                <ConnectWalletButton isLoading={isLoading} fullWidth color="primary" onClick={onBuy}>
+                <ConnectWalletButton isLoading={isLoading} fullWidth color="primary" onPress={onBuy}>
                   Buy
                 </ConnectWalletButton>
               </WillRender>

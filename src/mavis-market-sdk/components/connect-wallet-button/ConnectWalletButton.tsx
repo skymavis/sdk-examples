@@ -1,12 +1,13 @@
 import Button from '@components/button/Button';
 import { ButtonProps } from '@nextui-org/react';
+import { PressEvent } from '@react-types/shared';
 import { FC } from 'react';
 import { useGetWalletConnectData } from 'src/mavis-market-sdk/hooks/useGetWalletConnectData';
 
 import { useConnectorStore } from '../layout/connectors/stores/useConnectorStore';
 
 const ConnectWalletButton: FC<ButtonProps> = props => {
-  const { onClick } = props;
+  const { onPress } = props;
 
   const { chainId } = useGetWalletConnectData();
   const { connector, connectedChainId } = useConnectorStore();
@@ -17,19 +18,19 @@ const ConnectWalletButton: FC<ButtonProps> = props => {
     }
   };
 
-  const onHandleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onHandleClick = async (e: PressEvent) => {
     try {
       await handleSwitchChainId();
 
-      if (onClick) {
-        onClick(e);
+      if (onPress) {
+        onPress(e);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  return <Button {...props} onClick={onHandleClick} />;
+  return <Button {...props} onPress={onHandleClick} />;
 };
 
 export default ConnectWalletButton;

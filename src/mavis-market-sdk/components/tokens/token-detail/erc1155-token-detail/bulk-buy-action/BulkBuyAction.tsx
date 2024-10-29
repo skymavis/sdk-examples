@@ -90,7 +90,7 @@ const BulkBuyAction: FC<BulkBuyActionProps> = props => {
             fullWidth
             color="primary"
             isDisabled={quantity === 0 || quantity > availableOrdersQuantity}
-            onClick={() => setOpenBuyModal(true)}
+            onPress={() => setOpenBuyModal(true)}
           >
             Bulk buy
           </ConnectWalletButton>

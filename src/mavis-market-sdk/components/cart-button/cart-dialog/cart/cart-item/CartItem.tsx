@@ -57,11 +57,11 @@ const CartItem: FC<CartItemProps> = props => {
           {currentPrice && <Price amount={currentPrice} tokenAddress={paymentToken} />}
         </WillRender>
         <WillRender when={isInvalidItem}>
-          <Button isIconOnly onClick={onRefreshCartItem} variant="light">
+          <Button isIconOnly onPress={onRefreshCartItem} variant="light">
             <ArrowCounterClockwiseIcon />
           </Button>
         </WillRender>
-        <Button isIconOnly onClick={onRemoveCartItem} color="danger" variant="light">
+        <Button isIconOnly onPress={onRemoveCartItem} color="danger" variant="light">
           <TrashIcon />
         </Button>
       </div>

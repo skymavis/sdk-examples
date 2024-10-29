@@ -1,4 +1,5 @@
 import Button from '@components/button/Button';
+import Typography from '@components/typography/Typography';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { isNil } from 'lodash';
 import { useRouter } from 'next/router';
@@ -41,11 +42,11 @@ const Header: FC<HeaderProps> = props => {
       <div className={Classes.content}>
         <div className={Classes.logo} onClick={onRedirectToHomepage}>
           <img src="https://cdn.skymavis.com/skymavis-home/public/homepage/core-value.png" width={40} />
-          New Mavis Market
+          <Typography className={Classes.title}>New Mavis Market</Typography>
         </div>
         <div className={Classes.actions}>
           <WillRender when={isNil(connectedAccount)}>
-            <Button color="primary" onClick={onConnectWallet}>
+            <Button color="primary" onPress={onConnectWallet}>
               Connect wallet
             </Button>
           </WillRender>

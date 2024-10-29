@@ -29,7 +29,7 @@ const ExampleCard: FC<ExampleCardProps> = props => {
         <Typography size="small" color="gray">
           {description}
         </Typography>
-        <Button fullWidth color="primary" onClick={() => {}}>
+        <Button fullWidth color="primary" onPress={() => {}}>
           View Example
         </Button>
       </Link>

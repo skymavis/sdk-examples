@@ -117,7 +117,7 @@ const SwapRonModal: FC<SwapRonModalProps> = props => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <ConnectWalletButton isLoading={isLoading} fullWidth color="primary" onClick={onSwap}>
+              <ConnectWalletButton isLoading={isLoading} fullWidth color="primary" onPress={onSwap}>
                 Confirm listing
               </ConnectWalletButton>
             </ModalFooter>

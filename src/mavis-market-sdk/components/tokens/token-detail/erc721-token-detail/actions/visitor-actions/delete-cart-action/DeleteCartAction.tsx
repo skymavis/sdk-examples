@@ -17,7 +17,7 @@ const DeleteCartAction: FC<DeleteCartActionProps> = props => {
   };
 
   return (
-    <Button isIconOnly variant="bordered" onClick={onRemoveFromCart}>
+    <Button isIconOnly variant="bordered" onPress={onRemoveFromCart}>
       <CustomShoppingCartRemoveIcon />
     </Button>
   );

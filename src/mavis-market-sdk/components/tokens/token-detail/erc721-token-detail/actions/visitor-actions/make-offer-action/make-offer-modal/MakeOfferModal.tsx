@@ -121,7 +121,7 @@ const MakeOfferModal: FC<MakeOfferModalProps> = props => {
             </ModalBody>
             <ModalFooter>
               <WillRender when={isApproved}>
-                <ConnectWalletButton fullWidth isLoading={isLoading} color="primary" onClick={onMakeOffer}>
+                <ConnectWalletButton fullWidth isLoading={isLoading} color="primary" onPress={onMakeOffer}>
                   Make offer
                 </ConnectWalletButton>
               </WillRender>

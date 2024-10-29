@@ -1,0 +1,32 @@
+.roninMobileIconContainer {
+  position: relative;
+  padding: 36px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+
+  .roninMobileIcon {
+    margin: auto;
+    display: block;
+    height: 70px;
+    border-radius: 16px;
+  }
+
+  .openAppButton {
+    background-image: linear-gradient(to right, #4776e6 0%, #8e54e9 51%, #4776e6 100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    width: 200px;
+    padding: 8px 16px;
+    border-radius: 10px;
+
+    &:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}

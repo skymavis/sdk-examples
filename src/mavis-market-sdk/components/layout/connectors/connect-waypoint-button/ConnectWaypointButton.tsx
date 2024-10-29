@@ -2,9 +2,9 @@ import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
 import { FC } from 'react';
 import { useConnectWallet } from 'src/mavis-market-sdk/hooks/useConnectWallet';
 
-import ButtonOption from '../button-option/ButtonOption';
+import CustomButton from '../custom-button/CustomButton';
 
-const RoninWaypoint: FC = () => {
+const ConnectWaypointButton: FC = () => {
   const { connectWaypoint } = useConnectWallet();
 
   const onClickWaypointButton = () => {
@@ -12,14 +12,14 @@ const RoninWaypoint: FC = () => {
   };
 
   return (
-    <ButtonOption
+    <CustomButton
       icon={DEFAULT_CONNECTORS_CONFIG.WAYPOINT.icon as string}
       name="Ronin Waypoint"
       subText="Connect the wallet with your email"
       variant="bordered"
-      onClick={onClickWaypointButton}
+      onPress={onClickWaypointButton}
     />
   );
 };
 
-export default RoninWaypoint;
+export default ConnectWaypointButton;

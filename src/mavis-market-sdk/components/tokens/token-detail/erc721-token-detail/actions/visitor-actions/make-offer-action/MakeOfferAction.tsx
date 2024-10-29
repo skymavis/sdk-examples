@@ -33,7 +33,7 @@ const MakeOfferAction: FC<MakeOfferActionProps> = props => {
 
   return (
     <>
-      <ConnectWalletButton variant="bordered" fullWidth onClick={onOpenMakeOfferModal}>
+      <ConnectWalletButton variant="bordered" fullWidth onPress={onOpenMakeOfferModal}>
         Make offer
       </ConnectWalletButton>
       <MakeOfferModal

@@ -81,7 +81,7 @@ const GiftModal: FC<GiftModalProps> = props => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <ConnectWalletButton fullWidth isLoading={isGifting} color="primary" onClick={onGift}>
+              <ConnectWalletButton fullWidth isLoading={isGifting} color="primary" onPress={onGift}>
                 Gift
               </ConnectWalletButton>
             </ModalFooter>

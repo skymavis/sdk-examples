@@ -72,7 +72,7 @@ const OfferItem: FC<OfferItemProps> = props => {
         </WillRender>
       </div>
       <WillRender when={isOwner}>
-        <ConnectWalletButton variant="bordered" isLoading={isAccepting} onClick={onAcceptOffer}>
+        <ConnectWalletButton variant="bordered" isLoading={isAccepting} onPress={onAcceptOffer}>
           Accept offer
         </ConnectWalletButton>
       </WillRender>
