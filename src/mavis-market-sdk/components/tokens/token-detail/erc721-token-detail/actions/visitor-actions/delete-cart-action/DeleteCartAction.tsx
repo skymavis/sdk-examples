@@ -1,7 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { Erc721Token } from '@sky-mavis/mavis-market-core';
 import { FC } from 'react';
-import CustomShoppingCartRemoveIcon from 'src/icons/CustomShoppingCartRemoveIcon';
 import { useCartStore } from 'src/mavis-market-sdk/hooks/useCartStore';
 
 interface DeleteCartActionProps {
@@ -17,8 +16,8 @@ const DeleteCartAction: FC<DeleteCartActionProps> = props => {
   };
 
   return (
-    <Button isIconOnly variant="bordered" onPress={onRemoveFromCart}>
-      <CustomShoppingCartRemoveIcon />
+    <Button fullWidth variant="bordered" onPress={onRemoveFromCart}>
+      Delete from cart
     </Button>
   );
 };

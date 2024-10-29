@@ -1,7 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { Erc721Token } from '@sky-mavis/mavis-market-core';
 import { FC } from 'react';
-import CustomShoppingCartAddIcon from 'src/icons/CustomShoppingCartAddIcon';
 import { useCartStore } from 'src/mavis-market-sdk/hooks/useCartStore';
 import { checkIsAllowedAddToCart } from 'src/mavis-market-sdk/utils/getCartDataUtils';
 
@@ -21,8 +20,8 @@ const AddToCartAction: FC<AddToCartActionProps> = props => {
   };
 
   return (
-    <Button isIconOnly variant="bordered" onPress={onAddToCart}>
-      <CustomShoppingCartAddIcon />
+    <Button fullWidth variant="bordered" onPress={onAddToCart}>
+      Add to cart
     </Button>
   );
 };

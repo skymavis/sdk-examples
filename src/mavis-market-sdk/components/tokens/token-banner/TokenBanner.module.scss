@@ -41,6 +41,7 @@
   @media (max-width: 768px) {
     .content {
       flex-direction: column;
+      align-items: flex-start;
       gap: 8px;
     }
   }

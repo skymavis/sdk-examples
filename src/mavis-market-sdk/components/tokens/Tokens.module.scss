@@ -11,9 +11,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 40px;
+  }
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
+    .tokens {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
     }
   }
 }

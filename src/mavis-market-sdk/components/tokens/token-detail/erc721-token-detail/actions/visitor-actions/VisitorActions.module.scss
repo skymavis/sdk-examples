@@ -1,5 +1,10 @@
 .visitorActions {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
+
+  .actionsGroup {
+    display: flex;
+    gap: 12px;
+  }
 }
