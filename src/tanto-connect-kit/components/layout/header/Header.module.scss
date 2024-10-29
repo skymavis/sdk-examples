@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  backdrop-filter: blur(25px);
+
+  .content {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+}

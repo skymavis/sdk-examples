@@ -1,0 +1,20 @@
+.signTransaction {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+
+  .group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .input {
+    margin-top: 0px;
+  }
+
+  .action {
+    width: 200px;
+  }
+
+}

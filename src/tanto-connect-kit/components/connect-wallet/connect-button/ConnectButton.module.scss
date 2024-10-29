@@ -1,0 +1,21 @@
+.connectWallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .connectBtn {
+    justify-content: flex-start;
+    height: 64px;
+  }
+
+  .chip {
+    margin-left: auto
+  }
+}

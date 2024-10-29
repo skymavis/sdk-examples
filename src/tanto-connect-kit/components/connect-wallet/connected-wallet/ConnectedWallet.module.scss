@@ -1,0 +1,19 @@
+.connectedWallet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0px;
+  gap: 12px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+}

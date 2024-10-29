@@ -10,13 +10,14 @@
     "lint:fix": "eslint . --ext .js,.tsx,.ts --fix"
   },
   "dependencies": {
-    "@sky-mavis/mavis-market-core": "0.0.3",
     "@next/font": "14.2.1",
     "@nextui-org/react": "2.3.1",
     "@nextui-org/theme": "2.2.3",
-    "@sky-mavis/tanto-connect": "0.0.5",
+    "@sky-mavis/mavis-market-core": "0.0.3",
+    "@sky-mavis/tanto-connect": "0.0.6",
     "@types/node": "20.12.7",
     "autoprefixer": "10.4.19",
+    "boring-avatars": "^1.11.2",
     "classnames": "2.5.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.1",
