@@ -1,11 +1,13 @@
 import { ChainIds, DEFAULT_CONNECTORS_CONFIG, SupportedConnectors } from '@sky-mavis/tanto-connect';
 
+export const tantoExamplePrefix = '/tanto-connect-kit';
+
 export const connectorPaths: Record<SupportedConnectors, string> = {
-  [SupportedConnectors.RONIN_WALLET]: '/tanto-connect-kit/ronin-wallet',
-  [SupportedConnectors.RONIN_WC]: '/tanto-connect-kit/ronin-wc',
-  [SupportedConnectors.INJECTED]: '/tanto-connect-kit/injected-providers',
-  [SupportedConnectors.WAYPOINT]: '/tanto-connect-kit/ronin-waypoint',
-  [SupportedConnectors.SAFE]: '',
+  [SupportedConnectors.RONIN_WALLET]: `${tantoExamplePrefix}/ronin-wallet`,
+  [SupportedConnectors.RONIN_WC]: `${tantoExamplePrefix}/ronin-wc`,
+  [SupportedConnectors.INJECTED]: `${tantoExamplePrefix}/injected-providers`,
+  [SupportedConnectors.WAYPOINT]: `${tantoExamplePrefix}/ronin-waypoint`,
+  [SupportedConnectors.SAFE]: ``,
 };
 
 export const connectorTabs = Object.values(DEFAULT_CONNECTORS_CONFIG).map(connector => {

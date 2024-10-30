@@ -17,7 +17,7 @@
     "@sky-mavis/tanto-connect": "0.0.6",
     "@types/node": "20.12.7",
     "autoprefixer": "10.4.19",
-    "boring-avatars": "^1.11.2",
+    "boring-avatars": "1.11.2",
     "classnames": "2.5.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.1",

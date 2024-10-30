@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
+import RoninWallet from 'src/tanto-connect-kit/components/connectors/ronin-wallet/RoninWallet';
 
 import Layout from '../../src/tanto-connect-kit/components/layout/Layout';
-import RoninWalletPage from './ronin-wallet';
 
 const TantoConnectKitPage: FC = () => {
   return (
     <Layout>
-      <RoninWalletPage />
+      <RoninWallet />
     </Layout>
   );
 };

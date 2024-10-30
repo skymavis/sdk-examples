@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { FC, Key } from 'react';
 
-import { connectorPaths, connectorTabs } from '../../../../common/constant';
+import { connectorPaths, connectorTabs, tantoExamplePrefix } from '../../../../common/constant';
 
 import styles from './Navigation.module.scss';
 
@@ -25,13 +25,18 @@ const ConnectorTabs: FC = () => {
   const router = useRouter();
 
   const handleChangeSelection = (key: Key) => {
+    const isRootPage = tantoExamplePrefix === router.pathname;
+    if (key === SupportedConnectors.RONIN_WALLET && isRootPage) {
+      return;
+    }
+
     const url = connectorPaths[key as SupportedConnectors];
     router.push(url);
   };
 
   const selectedKey = connectorTabs.find(tab => tab.url === router.pathname)?.id;
 
-  // Hide Safe connector tab
+  // Hide Safe connector
   const tabs = connectorTabs.filter(i => i.id !== SupportedConnectors.SAFE);
 
   return (
