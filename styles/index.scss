@@ -27,3 +27,16 @@
 body {
   background: linear-gradient(120deg, rgb(36 45 57) 11.2%, rgb(16 37 60) 51.2%, rgb(0 0 0) 98.6%);
 }
+
+html {
+  font-size: 14px;
+}
+
+
+.bg-background {
+  background-image: linear-gradient(to right, #4776e6 0%, #8e54e9 51%, #4776e6 100%);
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+}

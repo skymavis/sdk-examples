@@ -1,0 +1,15 @@
+.roninWalletConnect {
+  padding: 24px;
+  width: 360px;
+  background-color: rgb(26 28 31 / 50%);
+  border-radius: 16px;
+  height: fit-content;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px
+  }
+}
