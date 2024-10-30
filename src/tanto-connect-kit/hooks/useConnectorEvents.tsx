@@ -1,9 +1,6 @@
-import {
-  BaseConnector,
-  ConnectorEvent,
-  IConnectResult,
-} from "@sky-mavis/tanto-connect";
-import useConnectStore from "../stores/useConnectStore";
+import { BaseConnector, ConnectorEvent, IConnectResult } from '@sky-mavis/tanto-connect';
+
+import useConnectStore from '../stores/useConnectStore';
 
 const useConnectorEvents = () => {
   const { setIsConnected, setAccount, setChainId } = useConnectStore();

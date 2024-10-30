@@ -1,19 +1,19 @@
-import { Input } from "@nextui-org/react";
-import React, { FC, useState } from "react";
+import Button from '@components/button/Button';
+import WillRender from '@components/will-render/WillRender';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { Textarea } from '@nextui-org/input';
+import { Input } from '@nextui-org/react';
+import { isNil } from 'lodash';
+import React, { FC, useState } from 'react';
 
-import { Textarea } from "@nextui-org/input";
-import Button from "@components/button/Button";
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+import useConnectStore from '../../../stores/useConnectStore';
 
-import WillRender from "@components/will-render/WillRender";
-import { isNil } from "lodash";
-import useConnectStore from "../../../stores/useConnectStore";
-import styles from "./SignMessage.module.scss";
+import styles from './SignMessage.module.scss';
 
 const SignMessage: FC = () => {
   const { connector, isConnected } = useConnectStore();
 
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const [signature, setSignature] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -35,28 +35,12 @@ const SignMessage: FC = () => {
 
   return (
     <div className={styles.signMessage}>
-      <Textarea
-        label="Message"
-        onChange={(e) => setMessage(e.target.value)}
-        radius={"sm"}
-      />
-      <Button
-        onClick={signMessage}
-        isLoading={isLoading}
-        color="primary"
-        radius={"sm"}
-        disabled={!isConnected}
-      >
+      <Textarea label="Message" onChange={e => setMessage(e.target.value)} radius={'sm'} />
+      <Button onClick={signMessage} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
         Sign Message
       </Button>
       <WillRender when={!isNil(signature)}>
-        <Input
-          readOnly
-          value={signature}
-          label="Signature Hash"
-          color={"primary"}
-          radius={"sm"}
-        />
+        <Input readOnly value={signature} label="Signature Hash" color={'primary'} radius={'sm'} />
       </WillRender>
     </div>
   );

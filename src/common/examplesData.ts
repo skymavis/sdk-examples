@@ -10,7 +10,6 @@ export const examplesData = [
     id: 'tanto-connect-kit',
     path: '/tanto-connect-kit',
     title: 'Tanto Connect Kit',
-    description:
-      'This example shows how to use Tantokit to manage wallet connections in a Ronin DApp, simplifying the process for users.',
+    description: '“An example of using Tantokit to simplify wallet connections in a Ronin DApp.',
   },
 ];

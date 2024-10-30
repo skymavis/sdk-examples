@@ -1,15 +1,15 @@
-import { Input } from "@nextui-org/react";
-import { ethers } from "ethers";
-import React, { FC, useState } from "react";
+import Button from '@components/button/Button';
+import WillRender from '@components/will-render/WillRender';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { Input } from '@nextui-org/react';
+import { ethers } from 'ethers';
+import { isNil } from 'lodash';
+import React, { FC, useState } from 'react';
 
-import Button from "@components/button/Button";
-import WillRender from "@components/will-render/WillRender";
-import { isNil } from "lodash";
-import useConnectStore from "../../../stores/useConnectStore";
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
+import { appConfigs } from '../../../common/constant';
+import useConnectStore from '../../../stores/useConnectStore';
 
-import styles from "./SendNativeToken.module.scss";
-import { appConfigs } from "../../../common/constant";
+import styles from './SendNativeToken.module.scss';
 
 const SendNativeToken: FC = () => {
   const { connector, isConnected } = useConnectStore();
@@ -32,42 +32,26 @@ const SendNativeToken: FC = () => {
 
     signer
       .sendTransaction(transaction)
-      .then((tx) => setTxHash(tx.hash))
+      .then(tx => setTxHash(tx.hash))
       .catch(console.error)
       .finally(() => setIsLoading(false));
   };
 
   return (
     <div className={styles.sendNativeToken}>
-      <Input
-        label={"Amount"}
-        value={amount}
-        onValueChange={setAmount}
-        radius={"sm"}
-      />
-      <Input
-        label={"Recipient"}
-        value={recipient}
-        radius={"sm"}
-        onValueChange={setRecipient}
-      />
+      <Input label={'Amount'} value={amount} onValueChange={setAmount} radius={'sm'} />
+      <Input label={'Recipient'} value={recipient} radius={'sm'} onValueChange={setRecipient} />
       <Button
         disabled={!recipient || !amount || !isConnected}
         onClick={sendNativeToken}
-        color={"primary"}
-        radius={"sm"}
+        color={'primary'}
+        radius={'sm'}
         isLoading={isLoading}
       >
         Send
       </Button>
       <WillRender when={!isNil(txHash)}>
-        <Input
-          label={"Transaction Hash"}
-          value={txHash}
-          disabled
-          color={"primary"}
-          radius={"sm"}
-        />
+        <Input label={'Transaction Hash'} value={txHash} disabled color={'primary'} radius={'sm'} />
       </WillRender>
     </div>
   );

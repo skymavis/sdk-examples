@@ -1,12 +1,13 @@
-import React, { FC, useState } from "react";
-import { truncateAddress } from "../../../../mavis-market-sdk/utils/addressUtil";
-import Button from "@components/button/Button";
-import Avatar from "boring-avatars";
-import Typography from "@components/typography/Typography";
+import Button from '@components/button/Button';
+import Typography from '@components/typography/Typography';
+import Avatar from 'boring-avatars';
+import { isNil } from 'lodash';
+import React, { FC, useState } from 'react';
 
-import styles from "./ConnectedWallet.module.scss";
-import { isNil } from "lodash";
-import useConnectStore from "../../../stores/useConnectStore";
+import { truncateAddress } from '../../../../mavis-market-sdk/utils/addressUtil';
+import useConnectStore from '../../../stores/useConnectStore';
+
+import styles from './ConnectedWallet.module.scss';
 
 const ConnectedWallet: FC = () => {
   const { connector, account, chainId } = useConnectStore();
@@ -29,28 +30,23 @@ const ConnectedWallet: FC = () => {
 
   return (
     <div className={styles.connectedWallet}>
-      <Typography bold size={"xSmall"}>
+      <Typography bold size={'xSmall'}>
         Connected
       </Typography>
       <Avatar name="account" size={80} />
 
       <div className={styles.content}>
         <Typography bold>{truncateAddress(account)}</Typography>
-        <Typography size={"xSmall"} color={"gray"}>
+        <Typography size={'xSmall'} color={'gray'}>
           {connector.name} | Chain ID: {chainId}
         </Typography>
       </div>
 
       <div className={styles.actions}>
-        <Button onClick={copyAccountAddress} fullWidth={true} radius={"sm"}>
-          {isCopied ? "Copied!" : "Copy Address"}
+        <Button onClick={copyAccountAddress} fullWidth={true} radius={'sm'}>
+          {isCopied ? 'Copied!' : 'Copy Address'}
         </Button>
-        <Button
-          color={"primary"}
-          onClick={disconnectWallet}
-          fullWidth={true}
-          radius={"sm"}
-        >
+        <Button color={'primary'} onClick={disconnectWallet} fullWidth={true} radius={'sm'}>
           Disconnect
         </Button>
       </div>

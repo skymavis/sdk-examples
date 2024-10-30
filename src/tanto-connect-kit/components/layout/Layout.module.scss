@@ -10,16 +10,32 @@
     display: flex;
     gap: 20px;
 
+
     .content {
-      position: fixed;
+      height: fit-content;
+      position: sticky;
+      top: 200px;
     }
 
     .sections {
-      padding-left: 380px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
   }
+
+  @media (max-width: 768px) {
+    .body {
+      flex-direction: column;
+      padding-top: 160px;
+      .content {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        top: 0;
+      }
+    }
+  }
 }
+

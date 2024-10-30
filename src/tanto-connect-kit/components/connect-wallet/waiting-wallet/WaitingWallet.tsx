@@ -1,10 +1,12 @@
-import React, { FC } from "react";
-import Typography from "@components/typography/Typography";
-import styles from "./WaitingWallet.module.scss";
-import { Button, Spinner } from "@nextui-org/react";
-import WillRender from "@components/will-render/WillRender";
-import { isNil } from "lodash";
-import XIcon from "../../../../icons/XIcon";
+import Typography from '@components/typography/Typography';
+import WillRender from '@components/will-render/WillRender';
+import { Button, Spinner } from '@nextui-org/react';
+import { isNil } from 'lodash';
+import React, { FC } from 'react';
+
+import XIcon from '../../../../icons/XIcon';
+
+import styles from './WaitingWallet.module.scss';
 
 interface IPropsType {
   name?: string;
@@ -14,17 +16,12 @@ interface IPropsType {
   onCancel?: () => void;
 }
 
-const WaitingWallet: FC<IPropsType> = (props) => {
+const WaitingWallet: FC<IPropsType> = props => {
   const { icon, name, text, description, onCancel } = props;
   return (
     <div className={styles.waitingWallet}>
       <WillRender when={!isNil(onCancel)}>
-        <Button
-          isIconOnly
-          variant={"light"}
-          className={styles.closeBtn}
-          onClick={onCancel}
-        >
+        <Button isIconOnly variant={'light'} className={styles.closeBtn} onClick={onCancel}>
           <XIcon />
         </Button>
       </WillRender>
@@ -35,10 +32,10 @@ const WaitingWallet: FC<IPropsType> = (props) => {
       <Spinner color="default" className={styles.spinner} />
 
       <WillRender when={!isNil(name)}>
-        <Typography size={"small"}>{text || `Opening ${name}...`}</Typography>
+        <Typography size={'small'}>{text || `Opening ${name}...`}</Typography>
       </WillRender>
-      <Typography size={"small"} color={"gray"}>
-        {description || "Confirm connection in the wallet"}
+      <Typography size={'small'} color={'gray'}>
+        {description || 'Confirm connection in the wallet'}
       </Typography>
     </div>
   );

@@ -1,16 +1,16 @@
-import { Input } from "@nextui-org/react";
-import { isNil } from "lodash";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import Button from '@components/button/Button';
+import WillRender from '@components/will-render/WillRender';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { Input } from '@nextui-org/react';
+import { ChainIds } from '@sky-mavis/tanto-connect';
+import { isNil } from 'lodash';
+import React, { FC, useEffect, useState } from 'react';
 
-import { CheckIn__factory } from "../../../abis/types";
-import Button from "@components/button/Button";
-import styles from "./SignTransaction.module.scss";
-import WillRender from "@components/will-render/WillRender";
-import useConnectStore from "../../../stores/useConnectStore";
+import { CheckIn__factory } from '../../../../abis/types';
+import { appConfigs } from '../../../common/constant';
+import useConnectStore from '../../../stores/useConnectStore';
 
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
-import { appConfigs } from "../../../common/constant";
-import { ChainIds } from "@sky-mavis/tanto-connect";
+import styles from './SignTransaction.module.scss';
 
 const SignTransaction: FC = () => {
   const { connector, isConnected, chainId, account } = useConnectStore();
@@ -22,9 +22,7 @@ const SignTransaction: FC = () => {
   const [streak, setStreak] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string>();
 
-  const isDisabled =
-    !chainId ||
-    ![ChainIds.RoninMainnet, ChainIds.RoninTestnet].includes(chainId);
+  const isDisabled = !chainId || ![ChainIds.RoninMainnet, ChainIds.RoninTestnet].includes(chainId);
 
   const createCheckInContract = async () => {
     if (!chainId || !appConfigs.checkin[chainId]) return;
@@ -49,7 +47,7 @@ const SignTransaction: FC = () => {
       setTimeLeft(isCheckedInToday ? calculateTimeLeftToMidnight() : null);
       setStreak(String(currentStreak));
     } catch (error) {
-      console.error("Error fetching streak:", error);
+      console.error('Error fetching streak:', error);
     } finally {
       setIsLoadingStreak(false);
     }
@@ -61,10 +59,10 @@ const SignTransaction: FC = () => {
     try {
       const checkInContract = await createCheckInContract();
       const tx = await checkInContract?.checkIn(account);
-      setTxHash(tx?.hash || "");
+      setTxHash(tx?.hash || '');
       await fetchCurrentStreak();
     } catch (err) {
-      console.error("Error during check-in:", err);
+      console.error('Error during check-in:', err);
     } finally {
       setIsCheckingIn(false);
     }
@@ -81,7 +79,7 @@ const SignTransaction: FC = () => {
   useEffect(() => {
     if (!isNil(timeLeft) && timeLeft > 0) {
       const timer = setInterval(() => {
-        setTimeLeft((prev) => (prev ? prev - 1 : prev));
+        setTimeLeft(prev => (prev ? prev - 1 : prev));
       }, 1000);
 
       return () => clearInterval(timer);
@@ -97,38 +95,32 @@ const SignTransaction: FC = () => {
       <div className={styles.group}>
         <Input
           className={styles.input}
-          value={isDisabled ? "Only available on Ronin network" : streak || ""}
+          value={isDisabled ? 'Only available on Ronin network' : streak || ''}
           disabled
-          radius={"sm"}
+          radius={'sm'}
         />
         <Button
           disabled={!isConnected || isDisabled}
           isLoading={isLoadingStreak}
           onClick={fetchCurrentStreak}
           className={styles.action}
-          color={"primary"}
-          radius={"sm"}
+          color={'primary'}
+          radius={'sm'}
         >
           Get Current Streaks
         </Button>
       </div>
 
-      <Button
-        disabled={!isNil(timeLeft)}
-        isLoading={isCheckingIn}
-        onClick={checkIn}
-        color={"primary"}
-        radius={"sm"}
-      >
-        {isNil(timeLeft) ? "Check In" : `${timeLeft}s`}
+      <Button disabled={!isNil(timeLeft)} isLoading={isCheckingIn} onClick={checkIn} color={'primary'} radius={'sm'}>
+        {isNil(timeLeft) ? 'Check In' : `${timeLeft}s`}
       </Button>
 
       <WillRender when={!isNil(txHash)}>
         <Input
           label="Transaction Hash"
-          labelPlacement={"outside"}
-          color={"primary"}
-          radius={"sm"}
+          labelPlacement={'outside'}
+          color={'primary'}
+          radius={'sm'}
           className={styles.input}
           value={txHash}
           disabled

@@ -1,13 +1,13 @@
-import { Tab, Tabs } from "@nextui-org/react";
-import { SupportedConnectors } from "@sky-mavis/tanto-connect";
-import { useRouter } from "next/router";
-import React, { FC, Key } from "react";
+import Typography from '@components/typography/Typography';
+import { Tab, Tabs } from '@nextui-org/react';
+import { SupportedConnectors } from '@sky-mavis/tanto-connect';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import React, { FC, Key } from 'react';
 
-import { connectorPaths, connectorTabs } from "../../../../common/constant";
+import { connectorPaths, connectorTabs } from '../../../../common/constant';
 
-import styles from "./Navigation.module.scss";
-import classNames from "classnames";
-import Typography from "@components/typography/Typography";
+import styles from './Navigation.module.scss';
 
 interface ITabTitleProps {
   icon: string | undefined;
@@ -29,12 +29,10 @@ const ConnectorTabs: FC = () => {
     router.push(url);
   };
 
-  const selectedKey = connectorTabs.find(
-    (tab) => tab.url === router.pathname
-  )?.id;
+  const selectedKey = connectorTabs.find(tab => tab.url === router.pathname)?.id;
 
   // Hide Safe connector tab
-  const tabs = connectorTabs.filter((i) => i.id !== SupportedConnectors.SAFE);
+  const tabs = connectorTabs.filter(i => i.id !== SupportedConnectors.SAFE);
 
   return (
     <Tabs
@@ -45,7 +43,7 @@ const ConnectorTabs: FC = () => {
       items={tabs}
       fullWidth={true}
     >
-      {(item) => (
+      {item => (
         <Tab
           className={classNames(styles.tab, {
             [styles.activeTab]: item.id === selectedKey,

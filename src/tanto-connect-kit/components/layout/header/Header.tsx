@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import Classes from "./Header.module.scss";
-import Intro from "./intro/Intro";
-import ConnectorTabs from "./connector-tabs/Navigation";
+import ConnectorTabs from './connector-tabs/Navigation';
+import Intro from './intro/Intro';
+
+import Classes from './Header.module.scss';
 
 const Header: FC = () => {
   return (

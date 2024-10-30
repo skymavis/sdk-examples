@@ -1,5 +1,5 @@
-import create from "zustand";
-import { BaseConnector } from "@sky-mavis/tanto-connect";
+import { BaseConnector } from '@sky-mavis/tanto-connect';
+import create from 'zustand';
 
 interface IConnectorsStore {
   connectors: BaseConnector[];
@@ -8,7 +8,7 @@ interface IConnectorsStore {
   setIsInitialized: (isInitialized: boolean) => void;
 }
 
-const useConnectorsStore = create<IConnectorsStore>((set) => ({
+const useConnectorsStore = create<IConnectorsStore>(set => ({
   connectors: [],
   isInitialized: false,
   setConnectors: (connectors: BaseConnector[]) => set({ connectors }),

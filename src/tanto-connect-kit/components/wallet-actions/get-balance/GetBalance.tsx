@@ -1,17 +1,16 @@
-import { Input } from "@nextui-org/react";
-import { ethers } from "ethers";
-import React, { FC, useState } from "react";
+import Button from '@components/button/Button';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { Input } from '@nextui-org/react';
+import { ethers } from 'ethers';
+import React, { FC, useState } from 'react';
 
-import Button from "@components/button/Button";
+import useConnectStore from '../../../stores/useConnectStore';
 
-import useConnectStore from "../../../stores/useConnectStore";
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
-
-import styles from "./GetBalance.module.scss";
+import styles from './GetBalance.module.scss';
 
 const GetBalance: FC = () => {
   const { connector, isConnected } = useConnectStore();
-  const [balance, setBalance] = React.useState<string>("");
+  const [balance, setBalance] = React.useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getBalance = async () => {
@@ -29,7 +28,7 @@ const GetBalance: FC = () => {
 
       setBalance(balanceInEther);
     } catch (error) {
-      console.error("get_balance", error);
+      console.error('get_balance', error);
     } finally {
       setIsLoading(false);
     }
@@ -37,12 +36,12 @@ const GetBalance: FC = () => {
 
   return (
     <div className={styles.getBalance}>
-      <Input readOnly value={balance} radius={"sm"} />
+      <Input readOnly value={balance} radius={'sm'} />
       <Button
         onClick={getBalance}
         isLoading={isLoading}
         color="primary"
-        radius={"sm"}
+        radius={'sm'}
         className={styles.action}
         disabled={!isConnected}
       >

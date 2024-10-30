@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import Layout from "../../../src/tanto-connect-kit/components/layout/Layout";
-import InjectedProviders from "../../../src/tanto-connect-kit/components/connectors/injected-providers/InjectedProviders";
+import InjectedProviders from '../../../src/tanto-connect-kit/components/connectors/injected-providers/InjectedProviders';
+import Layout from '../../../src/tanto-connect-kit/components/layout/Layout';
 
 const InjectedWalletsPage: FC = () => {
   return (

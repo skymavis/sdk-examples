@@ -1,24 +1,18 @@
-import { DEFAULT_CONNECTORS_CONFIG } from "@sky-mavis/tanto-connect";
-import React, { FC, useEffect, useState } from "react";
+import WillRender from '@components/will-render/WillRender';
+import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
+import React, { FC, useEffect, useState } from 'react';
 
-import ConnectButton from "../../connect-wallet/connect-button/ConnectButton";
-import WaitingWallet from "../../connect-wallet/waiting-wallet/WaitingWallet";
-import WillRender from "@components/will-render/WillRender";
+import useTantoConnect from '../../../hooks/useTantoConnect';
+import useConnectStore from '../../../stores/useConnectStore';
+import ConnectButton from '../../connect-wallet/connect-button/ConnectButton';
+import ConnectedWallet from '../../connect-wallet/connected-wallet/ConnectedWallet';
+import WaitingWallet from '../../connect-wallet/waiting-wallet/WaitingWallet';
 
-import styles from "./RoninWaypoint.module.scss";
-import ConnectedWallet from "../../connect-wallet/connected-wallet/ConnectedWallet";
-import useConnectStore from "../../../stores/useConnectStore";
-import useTantoConnect from "../../../hooks/useTantoConnect";
+import styles from './RoninWaypoint.module.scss';
 
 const roninWaypoint = DEFAULT_CONNECTORS_CONFIG.WAYPOINT;
 const RoninWaypoint: FC = () => {
-  const {
-    handleConnect,
-    findConnector,
-    connectors,
-    listenEvents,
-    removeListeners,
-  } = useTantoConnect();
+  const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
   const { connector, isConnected, setConnector } = useConnectStore();
 
   const [isConnecting, setIsConnecting] = useState(false);
@@ -55,11 +49,7 @@ const RoninWaypoint: FC = () => {
       </WillRender>
 
       <WillRender when={!!connector && isConnecting}>
-        <WaitingWallet
-          icon={roninWaypoint.icon}
-          name={roninWaypoint.name}
-          onCancel={() => setIsConnecting(false)}
-        />
+        <WaitingWallet icon={roninWaypoint.icon} name={roninWaypoint.name} onCancel={() => setIsConnecting(false)} />
       </WillRender>
 
       <WillRender when={isConnected}>

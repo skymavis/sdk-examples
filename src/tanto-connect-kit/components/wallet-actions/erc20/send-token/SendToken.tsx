@@ -1,12 +1,13 @@
-import React, { FC, useCallback, useState } from "react";
-import Button from "@components/button/Button";
-import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
-import useConnectStore from "../../../../stores/useConnectStore";
-import { Erc20__factory } from "../../../../../abis/types";
-import { ethers } from "ethers";
-import WillRender from "@components/will-render/WillRender";
-import { isNil } from "lodash";
-import { Input } from "@nextui-org/react";
+import Button from '@components/button/Button';
+import WillRender from '@components/will-render/WillRender';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { Input } from '@nextui-org/react';
+import { ethers } from 'ethers';
+import { isNil } from 'lodash';
+import React, { FC, useCallback, useState } from 'react';
+
+import { Erc20__factory } from '../../../../../abis/types';
+import useConnectStore from '../../../../stores/useConnectStore';
 
 interface IPropsType {
   tokenAddress: string;
@@ -35,8 +36,8 @@ const SendToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
     setIsLoading(true);
     erc20Contract
       .transfer(recipient, ethers.utils.parseEther(amount))
-      .then((tx) => setTxHash(tx.hash))
-      .catch((error) => console.error("[send_erc20]", error))
+      .then(tx => setTxHash(tx.hash))
+      .catch(error => console.error('[send_erc20]', error))
       .finally(() => setIsLoading(false));
   }, [recipient, amount]);
 
@@ -44,21 +45,15 @@ const SendToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
     <React.Fragment>
       <Button
         disabled={!recipient || !amount || !tokenAddress}
-        color={"primary"}
-        radius={"sm"}
+        color={'primary'}
+        radius={'sm'}
         onClick={sendToken}
         isLoading={isLoading}
       >
         Send
       </Button>
       <WillRender when={!isNil(txHash)}>
-        <Input
-          label={"Transaction Hash"}
-          value={txHash}
-          disabled
-          color={"primary"}
-          radius={"sm"}
-        />
+        <Input label={'Transaction Hash'} value={txHash} disabled color={'primary'} radius={'sm'} />
       </WillRender>
     </React.Fragment>
   );

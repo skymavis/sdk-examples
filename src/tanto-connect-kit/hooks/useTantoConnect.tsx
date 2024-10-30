@@ -1,24 +1,22 @@
-import { useEffect } from "react";
 import {
   BaseConnector,
   requestInjectedConnectors,
   requestRoninWalletConnectConnector,
   requestWaypointConnector,
-} from "@sky-mavis/tanto-connect";
-import { roninWalletConnectConfigs } from "../common/constant";
-import useConnectorsStore from "../stores/useConnectorsStore";
-import useConnectorEvents from "./useConnectorEvents";
+} from '@sky-mavis/tanto-connect';
+import { useEffect } from 'react';
+
+import { roninWalletConnectConfigs } from '../common/constant';
+import useConnectorsStore from '../stores/useConnectorsStore';
+import useConnectorEvents from './useConnectorEvents';
 
 const useTantoConnect = () => {
-  const { connectors, isInitialized, setConnectors, setIsInitialized } =
-    useConnectorsStore();
+  const { connectors, isInitialized, setConnectors, setIsInitialized } = useConnectorsStore();
   const { listenEvents, removeListeners } = useConnectorEvents();
 
   const initConnectors = async () => {
     const injectedWallets = await requestInjectedConnectors();
-    const roninWalletConnect = await requestRoninWalletConnectConnector(
-      roninWalletConnectConfigs
-    );
+    const roninWalletConnect = await requestRoninWalletConnectConnector(roninWalletConnectConfigs);
     const waypoint = requestWaypointConnector();
 
     return [...injectedWallets, roninWalletConnect, waypoint];
@@ -26,26 +24,25 @@ const useTantoConnect = () => {
 
   const handleConnect = async (connector: BaseConnector, chainId?: number) => {
     try {
-      const result = await connector.connect(chainId);
-      console.log(result);
+      await connector.connect(chainId);
     } catch (error) {
       console.error(error);
     }
   };
 
   const findConnector = (name: string) => {
-    return connectors.find((connector) => connector.name === name);
+    return connectors.find(connector => connector.name === name);
   };
 
   useEffect(() => {
     if (isInitialized) return;
 
     initConnectors()
-      .then((res) => {
+      .then(res => {
         setConnectors(res);
         setIsInitialized(true);
       })
-      .catch((error) => console.error("[init_connectors]", error));
+      .catch(error => console.error('[init_connectors]', error));
   }, []);
 
   return {
