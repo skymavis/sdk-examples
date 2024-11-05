@@ -13,11 +13,16 @@ import styles from './RoninWaypoint.module.scss';
 const roninWaypoint = DEFAULT_CONNECTORS_CONFIG.WAYPOINT;
 const RoninWaypoint: FC = () => {
   const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
-  const { connector, isConnected, setConnector } = useConnectStore();
+  const { connector, isConnected, setConnector, chainId, account } = useConnectStore();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
   const connectWaypointWallet = async () => {
+    if (connectors.length === 0) {
+      console.error('Ronin Wallet connectors not found.');
+      return;
+    }
+
     setIsConnecting(true);
     if (connector) {
       setConnector(connector);
@@ -53,7 +58,12 @@ const RoninWaypoint: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={roninWaypoint?.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );

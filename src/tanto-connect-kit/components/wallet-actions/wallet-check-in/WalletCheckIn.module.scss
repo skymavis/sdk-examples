@@ -1,0 +1,46 @@
+.walletCheckIn {
+  padding: 16px 24px;
+  width: 360px;
+  background-color: rgb(26 28 31 / 50%);
+  border-radius: 16px;
+  height: fit-content;
+  max-height: 400px;
+  display: flex;
+  gap: 12px;
+  position: relative;
+  margin-top: 20px;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 60px;
+    gap: 12px;
+
+    .checkInBtn {
+      min-width: 120px;
+      font-weight: 600;
+    }
+  }
+
+
+  .streaks {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    right: 12px;
+    bottom: 40px;
+
+    .currentStreaks {
+      margin-top: 4px;
+      font-size: 20px;
+      font-weight: 700
+    }
+
+    .roninWallet {
+      width: 36px;
+    }
+  }
+}

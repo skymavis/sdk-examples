@@ -15,12 +15,17 @@ import styles from './RoninWallet.module.scss';
 const roninWallet = DEFAULT_CONNECTORS_CONFIG.RONIN_WALLET;
 const RoninWallet: FC = () => {
   const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
-  const { connector, isConnected, setConnector } = useConnectStore();
+  const { connector, isConnected, setConnector, account, chainId } = useConnectStore();
   const { isMobile, isInAppBrowser } = usePlatformCheck();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
   const connectRoninWallet = () => {
+    if (connectors.length === 0) {
+      console.error('Ronin Wallet connectors not found.');
+      return;
+    }
+
     if (isMobile && !isInAppBrowser) {
       window.location.href = toDeepLinkInAppBrowser(window.location.href);
     }
@@ -60,7 +65,12 @@ const RoninWallet: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={roninWallet.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );

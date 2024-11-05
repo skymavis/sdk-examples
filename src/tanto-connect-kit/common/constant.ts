@@ -1,6 +1,15 @@
-import { ChainIds, DEFAULT_CONNECTORS_CONFIG, SupportedConnectors } from '@sky-mavis/tanto-connect';
+import {
+  ChainIds,
+  DEFAULT_CONNECTORS_CONFIG,
+  IWaypointProviderConfigs,
+  SupportedConnectors,
+} from '@sky-mavis/tanto-connect';
+import getConfig from 'next/config';
 
-export const tantoExamplePrefix = '/tanto-connect-kit';
+export const tantoExamplePrefix = '/tanto-kit';
+
+const { publicRuntimeConfig } = getConfig();
+const { chainId: chainIdFromConfig, waypointClientId } = publicRuntimeConfig;
 
 export const connectorPaths: Record<SupportedConnectors, string> = {
   [SupportedConnectors.RONIN_WALLET]: `${tantoExamplePrefix}/ronin-wallet`,
@@ -49,4 +58,9 @@ export const roninWalletConnectConfigs = {
     icons: ['https://cdn.skymavis.com/skymavis-home/public//homepage/core-value.png'],
     url: 'https://mavis-sdk-examples.vercel.app/',
   },
+};
+
+export const waypointConfigs: IWaypointProviderConfigs = {
+  clientId: waypointClientId,
+  chainId: chainIdFromConfig,
 };

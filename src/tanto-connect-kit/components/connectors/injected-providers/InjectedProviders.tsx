@@ -12,7 +12,7 @@ import styles from './InjectedProviders.module.scss';
 
 const InjectedProviders: FC = () => {
   const { handleConnect, connectors, listenEvents } = useTantoConnect();
-  const { connector, isConnected, setConnector } = useConnectStore();
+  const { connector, isConnected, setConnector, chainId, account } = useConnectStore();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -45,7 +45,12 @@ const InjectedProviders: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={connector?.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );

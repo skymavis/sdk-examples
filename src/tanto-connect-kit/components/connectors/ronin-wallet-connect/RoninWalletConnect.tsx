@@ -18,7 +18,7 @@ import styles from './RoninWalletConnect.module.scss';
 const roninWC = DEFAULT_CONNECTORS_CONFIG.RONIN_WC;
 const RoninWalletConnect: FC = () => {
   const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
-  const { isConnected, setConnector } = useConnectStore();
+  const { isConnected, connector, setConnector, chainId, account } = useConnectStore();
   const { isMobile } = usePlatformCheck();
 
   const [uri, setUri] = React.useState<string | null>(null);
@@ -75,7 +75,12 @@ const RoninWalletConnect: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={roninWC?.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );
