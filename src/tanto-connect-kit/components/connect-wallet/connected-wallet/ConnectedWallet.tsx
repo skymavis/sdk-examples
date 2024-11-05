@@ -37,7 +37,7 @@ const ConnectedWallet: FC<IPropsType> = props => {
       <Typography bold size={'xSmall'}>
         Connected
       </Typography>
-      <Avatar name="account" size={80} variant={avatarVariant ?? 'marble'} />
+      <Avatar name={account} size={80} variant={avatarVariant ?? 'marble'} />
 
       <div className={styles.content}>
         <Typography bold>{truncateAddress(account)}</Typography>

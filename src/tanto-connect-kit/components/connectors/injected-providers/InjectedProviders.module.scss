@@ -3,9 +3,12 @@
   width: 360px;
   background-color: rgb(26 28 31 / 50%);
   border-radius: 16px;
-  height: fit-content;
-  max-height: 400px;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+  .content {
+    height: fit-content;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    max-height: 320px;
+  }
 }

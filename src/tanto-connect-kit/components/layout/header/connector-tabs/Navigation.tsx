@@ -29,9 +29,10 @@ const ConnectorTabs: FC = () => {
     if (key === SupportedConnectors.RONIN_WALLET && isRootPage) {
       return;
     }
-
     const url = connectorPaths[key as SupportedConnectors];
-    router.push(url);
+    if (url !== router.pathname) {
+      router.push(url);
+    }
   };
 
   const selectedKey = connectorTabs.find(tab => tab.url === router.pathname)?.id;

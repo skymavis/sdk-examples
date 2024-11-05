@@ -1,6 +1,7 @@
 import WillRender from '@components/will-render/WillRender';
 import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
 import React, { FC, useEffect, useState } from 'react';
+import { RecentConnectorStorage } from 'src/tanto-connect-kit/common/storage';
 
 import usePlatformCheck from '../../../hooks/usePlatformCheck';
 import useTantoConnect from '../../../hooks/useTantoConnect';
@@ -57,7 +58,12 @@ const RoninWallet: FC = () => {
   return (
     <div className={styles.roninWallet}>
       <WillRender when={!isConnecting && !isConnected}>
-        <ConnectButton onClick={connectRoninWallet} icon={roninWallet.icon} text={roninWallet.name} isRecent={true} />
+        <ConnectButton
+          isRecent={RecentConnectorStorage.check(roninWallet.id)}
+          onClick={connectRoninWallet}
+          icon={roninWallet.icon}
+          text={roninWallet.name}
+        />
       </WillRender>
 
       <WillRender when={isConnecting}>
