@@ -1,6 +1,7 @@
 import WillRender from '@components/will-render/WillRender';
 import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
 import React, { FC, useEffect, useState } from 'react';
+import { RecentConnectorStorage } from 'src/tanto-connect-kit/common/storage';
 
 import usePlatformCheck from '../../../hooks/usePlatformCheck';
 import useTantoConnect from '../../../hooks/useTantoConnect';
@@ -15,12 +16,17 @@ import styles from './RoninWallet.module.scss';
 const roninWallet = DEFAULT_CONNECTORS_CONFIG.RONIN_WALLET;
 const RoninWallet: FC = () => {
   const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
-  const { connector, isConnected, setConnector } = useConnectStore();
+  const { connector, isConnected, setConnector, account, chainId } = useConnectStore();
   const { isMobile, isInAppBrowser } = usePlatformCheck();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
   const connectRoninWallet = () => {
+    if (connectors.length === 0) {
+      console.error('Ronin Wallet connectors not found.');
+      return;
+    }
+
     if (isMobile && !isInAppBrowser) {
       window.location.href = toDeepLinkInAppBrowser(window.location.href);
     }
@@ -52,7 +58,12 @@ const RoninWallet: FC = () => {
   return (
     <div className={styles.roninWallet}>
       <WillRender when={!isConnecting && !isConnected}>
-        <ConnectButton onClick={connectRoninWallet} icon={roninWallet.icon} text={roninWallet.name} isRecent={true} />
+        <ConnectButton
+          isRecent={RecentConnectorStorage.check(roninWallet.id)}
+          onClick={connectRoninWallet}
+          icon={roninWallet.icon}
+          text={roninWallet.name}
+        />
       </WillRender>
 
       <WillRender when={isConnecting}>
@@ -60,7 +71,12 @@ const RoninWallet: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={roninWallet.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );

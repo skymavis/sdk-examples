@@ -1,19 +1,43 @@
 import Typography from '@components/typography/Typography';
+import { Button } from '@nextui-org/react';
+import { useRouter } from 'next/router';
 import React, { FC } from 'react';
+
+import ArrowLeftIcon from '../../../../../icons/ArrowLeftIcon';
+import { tantoExamplePrefix } from '../../../../common/constant';
 
 import styles from './Intro.module.scss';
 
 const Intro: FC = () => {
+  const router = useRouter();
+
   return (
     <div className={styles.intro}>
-      <Typography size={'large'} bold>
-        <span className={styles.title}>TantoKit</span> <span className={styles.subtitle}>by Ronin</span>
-      </Typography>
+      <div className={styles.content}>
+        <Typography size={'large'} bold>
+          <span className={styles.title}>TantoKit</span> <span className={styles.subtitle}>by Ronin</span>
+        </Typography>
 
-      <Typography size={'small'} className={styles.description}>
-        TantoKit is a powerful library designed to simplify the management of wallet connections for Ronin DApps,
-        providing seamless integration and enhanced user experience.
-      </Typography>
+        <Typography size={'small'} className={styles.description}>
+          TantoKit is a powerful library designed to simplify the management of wallet connections for Ronin DApps,
+          providing seamless integration and enhanced user experience.
+        </Typography>
+      </div>
+
+      <Button
+        color="primary"
+        size="sm"
+        variant={'light'}
+        className={styles.wagmiBtn}
+        onClick={() => router.push(`${tantoExamplePrefix}/wagmi`)}
+        endContent={
+          <div className={styles.icon}>
+            <ArrowLeftIcon />
+          </div>
+        }
+      >
+        Tanto-wagmi
+      </Button>
     </div>
   );
 };

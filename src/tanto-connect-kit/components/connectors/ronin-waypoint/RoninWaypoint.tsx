@@ -1,6 +1,7 @@
 import WillRender from '@components/will-render/WillRender';
 import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
 import React, { FC, useEffect, useState } from 'react';
+import { RecentConnectorStorage } from 'src/tanto-connect-kit/common/storage';
 
 import useTantoConnect from '../../../hooks/useTantoConnect';
 import useConnectStore from '../../../stores/useConnectStore';
@@ -13,11 +14,16 @@ import styles from './RoninWaypoint.module.scss';
 const roninWaypoint = DEFAULT_CONNECTORS_CONFIG.WAYPOINT;
 const RoninWaypoint: FC = () => {
   const { handleConnect, findConnector, connectors, listenEvents, removeListeners } = useTantoConnect();
-  const { connector, isConnected, setConnector } = useConnectStore();
+  const { connector, isConnected, setConnector, chainId, account } = useConnectStore();
 
   const [isConnecting, setIsConnecting] = useState(false);
 
   const connectWaypointWallet = async () => {
+    if (connectors.length === 0) {
+      console.error('Ronin Wallet connectors not found.');
+      return;
+    }
+
     setIsConnecting(true);
     if (connector) {
       setConnector(connector);
@@ -41,10 +47,10 @@ const RoninWaypoint: FC = () => {
     <div className={styles.roninWaypoint}>
       <WillRender when={!isConnecting && !isConnected}>
         <ConnectButton
+          isRecent={RecentConnectorStorage.check(roninWaypoint.id)}
           onClick={connectWaypointWallet}
           icon={roninWaypoint.icon}
           text={roninWaypoint.name}
-          isRecent={true}
         />
       </WillRender>
 
@@ -53,7 +59,12 @@ const RoninWaypoint: FC = () => {
       </WillRender>
 
       <WillRender when={isConnected}>
-        <ConnectedWallet />
+        <ConnectedWallet
+          chainId={chainId}
+          account={account}
+          connectorName={roninWaypoint?.name}
+          disconnect={() => connector?.disconnect()}
+        />
       </WillRender>
     </div>
   );

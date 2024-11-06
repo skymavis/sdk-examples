@@ -8,8 +8,8 @@ export const examplesData = [
   },
   {
     id: 'tanto-connect-kit',
-    path: '/tanto-connect-kit',
-    title: 'Tanto Connect Kit',
+    path: '/tanto-kit',
+    title: 'Tanto Kit',
     description: 'This example shows how to use TantoKit to manage wallet connections in a Ronin DApp.',
   },
 ];
