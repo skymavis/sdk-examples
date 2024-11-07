@@ -1,0 +1,51 @@
+.Input {
+  color: var(--dg-tc-text);
+  width: 0;
+  position: relative;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  flex: 1 1 auto;
+  background-color: transparent;
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px;
+  appearance: textfield;
+  -webkit-appearance: textfield;
+  text-align: right;
+
+  .loading {
+    filter: grayscale(1);
+    opacity: 0.6;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .error {
+    color: var(--dg-tc-text-critical);
+  }
+
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  [type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  ::placeholder {
+    color: var(--dg-tc-text-dim);
+  }
+}

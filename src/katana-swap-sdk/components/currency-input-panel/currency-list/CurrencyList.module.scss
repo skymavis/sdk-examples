@@ -1,0 +1,103 @@
+.RowItemWrapper {
+  position: relative;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 36px;
+    border-radius: 0 2px 2px 0;
+    background: var(--dg-tc-itr-primary);
+    visibility: hidden;
+  }
+
+  .RowItem {
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    height: 56px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color var(--dg-timing-long) var(--dg-timing-fn);
+    overflow: hidden;
+
+    &:hover {
+      background-color: var(--dg-tc-itr-secondary-hovered);
+    }
+
+    // For the currencyLogo
+    > :first-child {
+      flex-shrink: 0;
+    }
+
+    .RowLabel {
+      max-width: 165px;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      .RowCurrencyName {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &.RowItemActive {
+    &::before {
+      visibility: visible;
+    }
+
+    .RowItem {
+      cursor: not-allowed;
+      background-color: var(--dg-tc-itr-secondary);
+    }
+  }
+
+  &.RowItemDisabled {
+    .RowItem {
+      cursor: not-allowed;
+      opacity: 0.5;
+      background-color: transparent;
+    }
+  }
+}
+
+.CurrencySymbol {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.BalanceContainer {
+  margin-left: auto;
+  overflow: hidden;
+
+  .Balance {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.CurrencyList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.Loader {
+  height: 16px !important;
+  width: 16px !important;
+}
+
+.SeedTag {
+  margin-left: 4px;
+}
