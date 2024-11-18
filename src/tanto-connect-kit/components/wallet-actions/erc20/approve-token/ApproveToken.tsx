@@ -47,7 +47,7 @@ const ApproveToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
         disabled={!recipient || !amount || !tokenAddress}
         color={'primary'}
         radius={'sm'}
-        onClick={approveToken}
+        onPress={approveToken}
         isLoading={isLoading}
       >
         Approve

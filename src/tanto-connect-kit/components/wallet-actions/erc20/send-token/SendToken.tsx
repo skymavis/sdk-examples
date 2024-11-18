@@ -47,7 +47,7 @@ const SendToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
         disabled={!recipient || !amount || !tokenAddress}
         color={'primary'}
         radius={'sm'}
-        onClick={sendToken}
+        onPress={sendToken}
         isLoading={isLoading}
       >
         Send

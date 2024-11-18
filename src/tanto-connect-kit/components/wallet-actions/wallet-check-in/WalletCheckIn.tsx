@@ -10,15 +10,14 @@ import { appConfigs } from '../../../common/constant';
 import styles from './WalletCheckIn.module.scss';
 
 const WalletCheckIn: FC = () => {
-  const { address, chainId } = useAccount();
+  const { address, chainId, isConnected } = useAccount();
   const { chains, switchChainAsync } = useSwitchChain();
   const { data: hash, isPending, writeContract, reset } = useWriteContract();
-  const contractAddress = chainId ? appConfigs.checkin[chainId] : '0x';
 
   const checkinContract = {
     abi: CheckInAbi,
-    address: contractAddress as `0x${string}`,
     args: [address],
+    address: (chainId ? appConfigs.checkin[chainId] : '0x') as `0x${string}`,
   } as const;
 
   const getCurrentStreak = useReadContract({
@@ -63,6 +62,8 @@ const WalletCheckIn: FC = () => {
 
   const isLoading = isCheckedInToday.isFetching || getCurrentStreak.isFetching || isPending || txReceipt.isLoading;
 
+  const disabled = !isCheckedInToday.data || !isConnected;
+
   useEffect(() => {
     refetchData();
     reset();
@@ -75,11 +76,11 @@ const WalletCheckIn: FC = () => {
           Daily checkin Ronin Wallet to complete your quest
         </Typography>
         <Button
-          onClick={performDailyCheckin}
-          color={isCheckedInToday.data ? 'default' : 'primary'}
+          onPress={performDailyCheckin}
+          color={disabled ? 'default' : 'primary'}
           radius={'sm'}
           className={styles.checkInBtn}
-          disabled={isCheckedInToday.data}
+          disabled={disabled}
           isLoading={address && isLoading}
         >
           {isCheckedInToday.data && address ? 'Checked' : 'Check-in'}

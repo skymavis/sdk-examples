@@ -102,7 +102,7 @@ const SignTransaction: FC = () => {
         <Button
           disabled={!isConnected || isDisabled}
           isLoading={isLoadingStreak}
-          onClick={fetchCurrentStreak}
+          onPress={fetchCurrentStreak}
           className={styles.action}
           color={'primary'}
           radius={'sm'}

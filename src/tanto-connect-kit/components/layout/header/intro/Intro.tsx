@@ -29,7 +29,7 @@ const Intro: FC = () => {
         size="sm"
         variant={'light'}
         className={styles.wagmiBtn}
-        onClick={() => router.push(`${tantoExamplePrefix}/wagmi`)}
+        onPress={() => router.push(`${tantoExamplePrefix}/wagmi`)}
         endContent={
           <div className={styles.icon}>
             <ArrowLeftIcon />

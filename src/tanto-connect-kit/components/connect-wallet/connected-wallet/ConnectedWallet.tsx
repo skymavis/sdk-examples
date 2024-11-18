@@ -37,6 +37,7 @@ const ConnectedWallet: FC<IPropsType> = props => {
       <Typography bold size={'xSmall'}>
         Connected
       </Typography>
+
       <Avatar name={account} size={80} variant={avatarVariant ?? 'marble'} />
 
       <div className={styles.content}>
@@ -47,10 +48,10 @@ const ConnectedWallet: FC<IPropsType> = props => {
       </div>
 
       <div className={styles.actions}>
-        <Button onClick={copyAccountAddress} fullWidth={true} radius={'sm'}>
+        <Button onPress={copyAccountAddress} fullWidth={true} radius={'sm'}>
           {isCopied ? 'Copied!' : 'Copy Address'}
         </Button>
-        <Button color={'primary'} onClick={disconnect} fullWidth={true} radius={'sm'}>
+        <Button color={'primary'} onPress={disconnect} fullWidth={true} radius={'sm'}>
           Disconnect
         </Button>
       </div>
