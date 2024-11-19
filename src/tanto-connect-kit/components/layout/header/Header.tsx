@@ -3,14 +3,14 @@ import React, { FC } from 'react';
 import ConnectorTabs from './connector-tabs/Navigation';
 import Intro from './intro/Intro';
 
-import Classes from './Header.module.scss';
+import styles from './Header.module.scss';
 
 const Header: FC = () => {
   return (
-    <div className={Classes.header}>
-      <div className={Classes.content}>
+    <div className={styles.header}>
+      <div className={styles.content}>
         <Intro />
-        <ConnectorTabs />
+        <ConnectorTabs className={styles.tabs} />
       </div>
     </div>
   );

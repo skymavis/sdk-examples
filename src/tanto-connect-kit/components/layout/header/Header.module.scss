@@ -15,5 +15,11 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
+
+    .tabs {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 }

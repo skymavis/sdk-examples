@@ -21,7 +21,12 @@ const TabTitle: FC<ITabTitleProps> = ({ icon, name }) => (
   </div>
 );
 
-const ConnectorTabs: FC = () => {
+interface IPropsType {
+  isVertical?: boolean;
+  className?: string;
+}
+
+const ConnectorTabs: FC<IPropsType> = ({ isVertical, className }) => {
   const router = useRouter();
 
   const handleChangeSelection = (key: Key) => {
@@ -43,10 +48,11 @@ const ConnectorTabs: FC = () => {
   return (
     <Tabs
       onSelectionChange={handleChangeSelection}
-      className={styles.navigation}
+      className={classNames(styles.navigation, className)}
       selectedKey={selectedKey}
-      disableAnimation={false}
+      isVertical={isVertical}
       items={tabs}
+      disableAnimation={false}
       fullWidth={true}
     >
       {item => (

@@ -111,7 +111,7 @@ const SignTransaction: FC = () => {
         </Button>
       </div>
 
-      <Button disabled={!isNil(timeLeft)} isLoading={isCheckingIn} onClick={checkIn} color={'primary'} radius={'sm'}>
+      <Button disabled={!isNil(timeLeft)} isLoading={isCheckingIn} onPress={checkIn} color={'primary'} radius={'sm'}>
         {isNil(timeLeft) ? 'Check In' : `${timeLeft}s`}
       </Button>
 

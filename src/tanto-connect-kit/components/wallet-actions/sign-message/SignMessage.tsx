@@ -36,7 +36,7 @@ const SignMessage: FC = () => {
   return (
     <div className={styles.signMessage}>
       <Textarea label="Message" onChange={e => setMessage(e.target.value)} radius={'sm'} />
-      <Button onClick={signMessage} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
+      <Button onPresss={signMessage} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
         Sign Message
       </Button>
       <WillRender when={!isNil(signature)}>

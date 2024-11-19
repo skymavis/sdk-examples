@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 
 import ArrowLeftIcon from '../../../../../icons/ArrowLeftIcon';
 import { tantoExamplePrefix } from '../../../../common/constant';
+import MobileTabs from '../mobile-tabs/MobileTabs';
 
 import styles from './Intro.module.scss';
 
@@ -14,9 +15,12 @@ const Intro: FC = () => {
   return (
     <div className={styles.intro}>
       <div className={styles.content}>
-        <Typography size={'large'} bold>
-          <span className={styles.title}>TantoKit</span> <span className={styles.subtitle}>by Ronin</span>
-        </Typography>
+        <div className={styles.menu}>
+          <MobileTabs />
+          <Typography size={'large'} bold>
+            <span className={styles.title}>TantoKit</span> <span className={styles.subtitle}>by Ronin</span>
+          </Typography>
+        </div>
 
         <Typography size={'small'} className={styles.description}>
           TantoKit is a powerful library designed to simplify the management of wallet connections for Ronin DApps,
