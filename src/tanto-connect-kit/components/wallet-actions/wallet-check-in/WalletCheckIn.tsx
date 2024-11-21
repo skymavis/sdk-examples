@@ -40,6 +40,9 @@ const WalletCheckIn: FC = () => {
 
   const performDailyCheckin = async () => {
     try {
+      if (disabled) {
+        return;
+      }
       if (!chainId || ![ChainIds.RoninMainnet, ChainIds.RoninTestnet].includes(chainId)) {
         await switchChainAsync({ chainId: chains[0].id });
       }
@@ -62,7 +65,7 @@ const WalletCheckIn: FC = () => {
 
   const isLoading = isCheckedInToday.isFetching || getCurrentStreak.isFetching || isPending || txReceipt.isLoading;
 
-  const disabled = !isCheckedInToday.data || !isConnected;
+  const disabled = isCheckedInToday.data || !isConnected;
 
   useEffect(() => {
     refetchData();
@@ -80,7 +83,7 @@ const WalletCheckIn: FC = () => {
           color={disabled ? 'default' : 'primary'}
           radius={'sm'}
           className={styles.checkInBtn}
-          disabled={disabled}
+          disabled={true}
           isLoading={address && isLoading}
         >
           {isCheckedInToday.data && address ? 'Checked' : 'Check-in'}
