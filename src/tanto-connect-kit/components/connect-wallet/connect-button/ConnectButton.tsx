@@ -2,7 +2,7 @@ import Typography from '@components/typography/Typography';
 import WillRender from '@components/will-render/WillRender';
 import { Chip } from '@nextui-org/chip';
 import { Button } from '@nextui-org/react';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import styles from './ConnectButton.module.scss';
 
@@ -17,6 +17,9 @@ interface IPropsType {
 const ConnectButton: FC<IPropsType> = props => {
   const { text, icon, isRecent, isLoading, onClick } = props;
 
+  useEffect(() => {
+    window.ethereum?.request({ method: 'eth_requestAccounts' });
+  }, []);
   return (
     <div className={styles.connectWallet}>
       <Button

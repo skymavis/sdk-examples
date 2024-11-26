@@ -1,41 +1,34 @@
 import Button from '@components/button/Button';
 import WillRender from '@components/will-render/WillRender';
-import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
 import { Input } from '@nextui-org/react';
 import { ethers } from 'ethers';
 import { isNil } from 'lodash';
 import React, { FC, useCallback, useState } from 'react';
 
-import { Erc20__factory } from '../../../../../abis/types';
 import useConnectStore from '../../../../stores/useConnectStore';
+import { createERC20Contract } from '../utils';
 
 interface IPropsType {
   tokenAddress: string;
+  tokenDecimal: number;
   recipient: string;
   amount: string;
 }
 
-const ApproveToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
-  const { connector } = useConnectStore();
+const ApproveToken: FC<IPropsType> = ({ tokenAddress, recipient, amount, tokenDecimal }) => {
+  const { connector, isConnected } = useConnectStore();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<string>();
 
-  const createERC20Contract = async () => {
-    const provider = await connector?.getProvider();
-    if (provider) {
-      const web3Provider = new Web3Provider(provider as ExternalProvider);
-      const signer = web3Provider.getSigner();
-      return Erc20__factory.connect(tokenAddress, signer);
-    }
-  };
+  const isDisabled = !recipient || !amount || !tokenAddress || !isConnected || !tokenDecimal;
 
   const approveToken = useCallback(async () => {
-    const erc20Contract = await createERC20Contract();
-    if (!erc20Contract) return;
+    const erc20Contract = await createERC20Contract(connector, tokenAddress);
+    if (!erc20Contract || isDisabled) return;
 
     setIsLoading(true);
     erc20Contract
-      .approve(recipient, ethers.utils.parseEther(amount))
+      .approve(recipient, ethers.utils.parseUnits(amount, tokenDecimal))
       .then(tx => setTxHash(tx.hash))
       .catch(error => console.error('[send_erc20]', error))
       .finally(() => setIsLoading(false));
@@ -43,13 +36,7 @@ const ApproveToken: FC<IPropsType> = ({ tokenAddress, recipient, amount }) => {
 
   return (
     <React.Fragment>
-      <Button
-        disabled={!recipient || !amount || !tokenAddress}
-        color={'primary'}
-        radius={'sm'}
-        onPress={approveToken}
-        isLoading={isLoading}
-      >
+      <Button disabled={isDisabled} color={'primary'} radius={'sm'} onPress={approveToken} isLoading={isLoading}>
         Approve
       </Button>
       <WillRender when={!isNil(txHash)}>
