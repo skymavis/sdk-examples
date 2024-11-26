@@ -21,7 +21,7 @@ const WaitingWallet: FC<IPropsType> = props => {
   return (
     <div className={styles.waitingWallet}>
       <WillRender when={!isNil(onCancel)}>
-        <Button isIconOnly variant={'light'} className={styles.closeBtn} onClick={onCancel}>
+        <Button isIconOnly variant={'light'} className={styles.closeBtn} onPress={onCancel}>
           <XIcon />
         </Button>
       </WillRender>

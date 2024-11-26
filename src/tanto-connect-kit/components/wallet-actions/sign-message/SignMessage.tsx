@@ -21,7 +21,6 @@ const SignMessage: FC = () => {
     setIsLoading(true);
     try {
       const provider = await connector?.getProvider();
-      if (!provider) return;
       const web3Provider = new Web3Provider(provider as ExternalProvider);
       const signer = web3Provider.getSigner();
       const signature = await signer.signMessage(message);
@@ -36,7 +35,7 @@ const SignMessage: FC = () => {
   return (
     <div className={styles.signMessage}>
       <Textarea label="Message" onChange={e => setMessage(e.target.value)} radius={'sm'} />
-      <Button onClick={signMessage} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
+      <Button onPress={signMessage} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
         Sign Message
       </Button>
       <WillRender when={!isNil(signature)}>

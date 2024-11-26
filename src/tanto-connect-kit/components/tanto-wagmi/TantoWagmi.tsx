@@ -1,8 +1,10 @@
 import WillRender from '@components/will-render/WillRender';
-import { DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
+import { ConnectorErrorType, DEFAULT_CONNECTORS_CONFIG } from '@sky-mavis/tanto-connect';
 import React, { useState } from 'react';
 import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi';
 
+import usePlatformCheck from '../../hooks/usePlatformCheck';
+import { toDeepLinkInAppBrowser } from '../../utils/link';
 import ConnectButton from '../connect-wallet/connect-button/ConnectButton';
 import ConnectedWallet from '../connect-wallet/connected-wallet/ConnectedWallet';
 import WaitingWallet from '../connect-wallet/waiting-wallet/WaitingWallet';
@@ -13,12 +15,23 @@ import styles from './TantoWagmi.module.scss';
 const TantoWagmi = () => {
   const [currentConnector, setCurrentConnector] = useState<Connector | null>(null);
   const { address, chainId, isConnected, isConnecting } = useAccount();
-  const { connectors, connect } = useConnect();
+  const { connectors, connectAsync } = useConnect();
   const { disconnect } = useDisconnect();
+
+  const { isMobile } = usePlatformCheck();
 
   const handleClickConnect = (connector: Connector) => {
     setCurrentConnector(connector);
-    connect({ connector });
+
+    connectAsync({ connector }).catch(error => {
+      if (error.name === ConnectorErrorType.PROVIDER_NOT_FOUND) {
+        if (isMobile) {
+          window.location.href = toDeepLinkInAppBrowser(window.location.href);
+        } else {
+          window.open('https://wallet.roninchain.com', '_blank');
+        }
+      }
+    });
   };
 
   return (

@@ -2,9 +2,7 @@ import Typography from '@components/typography/Typography';
 import WillRender from '@components/will-render/WillRender';
 import { Chip } from '@nextui-org/chip';
 import { Button } from '@nextui-org/react';
-import React, { FC } from 'react';
-
-import usePlatformCheck from '../../../hooks/usePlatformCheck';
+import React, { FC, useEffect } from 'react';
 
 import styles from './ConnectButton.module.scss';
 
@@ -18,15 +16,16 @@ interface IPropsType {
 
 const ConnectButton: FC<IPropsType> = props => {
   const { text, icon, isRecent, isLoading, onClick } = props;
-  const { isMobile } = usePlatformCheck();
 
+  useEffect(() => {
+    window.ethereum?.request({ method: 'eth_requestAccounts' });
+  }, []);
   return (
     <div className={styles.connectWallet}>
       <Button
         size={'lg'}
         variant={'light'}
-        onClick={!isMobile ? onClick : undefined}
-        onPress={isMobile ? onClick : undefined}
+        onPress={onClick}
         isLoading={isLoading}
         className={styles.connectBtn}
         startContent={icon && <img src={icon} className={styles.icon} alt={text} />}

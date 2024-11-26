@@ -1,10 +1,26 @@
 .intro {
   width: 100%;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+
 
   .content {
     margin-bottom: 20px;
     max-width: 680px;
+
+    .menu {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      > svg {
+        display: none;
+        @media (max-width: 768px) {
+          display: block;
+        }
+      }
+    }
 
     .title {
       font-weight: bold;
@@ -20,18 +36,17 @@
       font-size: 16px;
     }
 
-    .description {
-      @media (max-width: 768px) {
-        display: none
+    @media (max-width: 768px) {
+      margin-bottom: 0;
+
+      .description {
+        display: none;
       }
     }
   }
 
   .wagmiBtn {
-    position: absolute;
-    right: 0;
-    top: 0px;
-
+    margin-top: 4px;
     .icon {
       width: 12px;
       margin-left: -4px;

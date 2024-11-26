@@ -24,7 +24,7 @@ const RequestAccount: FC = () => {
   return (
     <div className={styles.requestAccount}>
       <Input readOnly value={account || ''} radius={'sm'} />
-      <Button onClick={requestAccount} isLoading={isLoading} className={styles.action} color="primary" radius={'sm'}>
+      <Button onPress={requestAccount} isLoading={isLoading} className={styles.action} color="primary" radius={'sm'}>
         Request Account
       </Button>
     </div>

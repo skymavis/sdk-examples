@@ -43,7 +43,7 @@ const SendNativeToken: FC = () => {
       <Input label={'Recipient'} value={recipient} radius={'sm'} onValueChange={setRecipient} />
       <Button
         disabled={!recipient || !amount || !isConnected}
-        onClick={sendNativeToken}
+        onPress={sendNativeToken}
         color={'primary'}
         radius={'sm'}
         isLoading={isLoading}

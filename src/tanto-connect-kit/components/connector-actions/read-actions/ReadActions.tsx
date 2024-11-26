@@ -68,7 +68,7 @@ const ReadActions: FC = () => {
         <div key={index} className={styles.group}>
           <Input readOnly value={connectorData[action.key]} radius={'sm'} />
           <Button
-            onClick={() => executeAction(action.key)}
+            onPress={() => executeAction(action.key)}
             isLoading={actionLoading.includes(action.key)}
             className={styles.action}
             color="primary"

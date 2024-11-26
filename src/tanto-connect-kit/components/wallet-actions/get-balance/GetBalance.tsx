@@ -38,7 +38,7 @@ const GetBalance: FC = () => {
     <div className={styles.getBalance}>
       <Input readOnly value={balance} radius={'sm'} />
       <Button
-        onClick={getBalance}
+        onPress={getBalance}
         isLoading={isLoading}
         color="primary"
         radius={'sm'}

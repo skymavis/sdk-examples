@@ -46,7 +46,7 @@ const SignSIWE: FC = () => {
 
   return (
     <div className={styles.signSiwe}>
-      <Button onClick={signSIWE} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
+      <Button onPress={signSIWE} isLoading={isLoading} color="primary" radius={'sm'} disabled={!isConnected}>
         Sign SIWE
       </Button>
       <WillRender when={!isNil(signature)}>

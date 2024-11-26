@@ -65,7 +65,7 @@ const SignTypedData: FC = () => {
 
   return (
     <div className={styles.sendTypedData}>
-      <Button onClick={signTypedData} isLoading={isLoading} color="primary" radius={'sm'}>
+      <Button onPress={signTypedData} isLoading={isLoading} color="primary" radius={'sm'}>
         Sign Typed Data V4
       </Button>
       <WillRender when={!isNil(signature)}>

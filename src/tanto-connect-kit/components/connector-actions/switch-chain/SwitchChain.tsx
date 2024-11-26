@@ -39,7 +39,7 @@ const SwitchChain: FC = () => {
       </Select>
 
       <Button
-        onClick={switchChain}
+        onPress={switchChain}
         disabled={isNil(selectedChainId)}
         isLoading={isLoading}
         color="primary"
