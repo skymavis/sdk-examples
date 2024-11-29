@@ -3454,10 +3454,10 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@sky-mavis/mavis-market-core@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@sky-mavis/mavis-market-core/-/mavis-market-core-0.0.3.tgz#43cfcff5bae2761750365dcd93f68fc7ed34d4f8"
-  integrity sha512-UIacTCKFyJQF3x06Y5j799DmvkjlKjEJFs7RKBslNFTj2VU3CBZmvG2ZBVGPARP2nxxYiakkkBclV10smE0+HQ==
+"@sky-mavis/mavis-market-core@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@sky-mavis/mavis-market-core/-/mavis-market-core-0.0.4.tgz#17b79aa4d1e28a3bac45789f668cf2a55f87a6db"
+  integrity sha512-qGL3isbqi/DPytctmDI3nDXBSgjP29aB9Ha3qEyxrjgs81BuYWqr2pRKMF9HsK1pVqURXQwsjEggPZDSVSixXQ==
   dependencies:
     eslint "8.30.0"
     ethers "5.7.2"

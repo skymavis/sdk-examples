@@ -147,7 +147,7 @@ const Erc721TokenDetail: FC<Erc721TokenDetailProps> = props => {
         <div className={Classes.offersContainer}>
           <Typography size="medium">All offers</Typography>
           <WillRender when={!isEmpty(offers)}>
-            <Offers owner={owner} offers={offers} />
+            <Offers collectionData={collectionData} owner={owner} offers={offers} />
           </WillRender>
           <WillRender when={isEmpty(offers)}>No offers found</WillRender>
         </div>
