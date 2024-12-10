@@ -11,14 +11,22 @@ import styles from './Intro.module.scss';
 
 const Intro: FC = () => {
   const router = useRouter();
+  const isTantoWagmi = router.pathname === `${tantoExamplePrefix}/wagmi`;
 
+  const handleClickNavigate = () => {
+    if (isTantoWagmi) {
+      router.push(`${tantoExamplePrefix}`);
+    } else {
+      router.push(`${tantoExamplePrefix}/wagmi`);
+    }
+  };
   return (
     <div className={styles.intro}>
       <div className={styles.content}>
         <div className={styles.menu}>
           <MobileTabs />
           <Typography size={'large'} bold>
-            <span className={styles.title}>TantoKit</span> <span className={styles.subtitle}>by Ronin</span>
+            <span className={styles.title}>TantoKit</span>
           </Typography>
         </div>
 
@@ -33,14 +41,14 @@ const Intro: FC = () => {
         size="sm"
         variant={'light'}
         className={styles.wagmiBtn}
-        onPress={() => router.push(`${tantoExamplePrefix}/wagmi`)}
+        onPress={handleClickNavigate}
         endContent={
           <div className={styles.icon}>
             <ArrowLeftIcon />
           </div>
         }
       >
-        Tanto-wagmi
+        {isTantoWagmi ? 'Tanto-connect' : 'Tanto-wagmi'}
       </Button>
     </div>
   );

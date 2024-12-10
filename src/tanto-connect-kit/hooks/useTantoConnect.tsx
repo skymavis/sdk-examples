@@ -6,7 +6,7 @@ import {
 } from '@sky-mavis/tanto-connect';
 import { useEffect } from 'react';
 
-import { roninWalletConnectConfigs, waypointConfigs } from '../common/constant';
+import { roninWCConfigs, waypointConfigs } from '../common/constant';
 import { RecentConnectorStorage } from '../common/storage';
 import useConnectorsStore from '../stores/useConnectorsStore';
 import useConnectorEvents from './useConnectorEvents';
@@ -17,7 +17,7 @@ const useTantoConnect = () => {
 
   const initConnectors = async () => {
     const injectedWallets = await requestInjectedConnectors();
-    const roninWalletConnect = await requestRoninWalletConnectConnector(roninWalletConnectConfigs);
+    const roninWalletConnect = await requestRoninWalletConnectConnector({ providerOptions: roninWCConfigs });
     const waypoint = requestWaypointConnector({}, waypointConfigs);
 
     return [...injectedWallets, roninWalletConnect, waypoint];

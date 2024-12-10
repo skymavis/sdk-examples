@@ -6,16 +6,16 @@ import { isNil } from 'lodash';
 import React, { FC, useCallback, useState } from 'react';
 
 import useConnectStore from '../../../../stores/useConnectStore';
+import { IERC20TransactionData } from '../types';
 import { createERC20Contract } from '../utils';
 
 interface IPropsType {
-  tokenAddress: string;
-  tokenDecimal: number;
-  recipient: string;
-  amount: string;
+  txData: IERC20TransactionData;
 }
 
-const SendToken: FC<IPropsType> = ({ tokenAddress, recipient, amount, tokenDecimal }) => {
+const SendToken: FC<IPropsType> = ({ txData }) => {
+  const { tokenDecimal, tokenAddress, amount, recipient } = txData;
+
   const { connector, isConnected } = useConnectStore();
   const [isLoading, setIsLoading] = useState(false);
   const [txHash, setTxHash] = useState<string>();
