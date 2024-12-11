@@ -5,7 +5,8 @@ import React, { FC } from 'react';
 import { ronin, saigon } from 'viem/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';
 
-import { roninWalletConnectConfigs, waypointConfigs } from '../../../src/tanto-connect-kit/common/constant';
+import { roninWCConfigs, waypointConfigs } from '../../../src/tanto-connect-kit/common/constant';
+import Header from '../../../src/tanto-connect-kit/components/layout/header/Header';
 import WagmiAccount from '../../../src/tanto-connect-kit/components/tanto-wagmi/TantoWagmi';
 
 const config = createConfig({
@@ -14,7 +15,7 @@ const config = createConfig({
     [ronin.id]: http(),
     [saigon.id]: http(),
   },
-  connectors: [roninWallet(), waypoint(waypointConfigs), walletConnect(roninWalletConnectConfigs)],
+  connectors: [roninWallet(), waypoint(waypointConfigs), walletConnect(roninWCConfigs)],
   multiInjectedProviderDiscovery: false,
   ssr: true,
 });
@@ -25,6 +26,7 @@ const WagmiExample: FC = () => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
+        <Header showConnectorTabs={false} />
         <WagmiAccount />
       </QueryClientProvider>
     </WagmiProvider>

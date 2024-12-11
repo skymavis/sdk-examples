@@ -50,7 +50,7 @@ export const appConfigs: IDefaultConfigs = {
   },
 };
 
-export const roninWalletConnectConfigs = {
+export const roninWCConfigs = {
   projectId: 'd2ef97836db7eb390bcb2c1e9847ecdc',
   metadata: {
     name: 'TantoKit Example',

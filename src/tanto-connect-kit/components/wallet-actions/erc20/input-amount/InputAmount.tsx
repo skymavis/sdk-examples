@@ -3,16 +3,17 @@ import { ethers } from 'ethers';
 import React, { FC, useState } from 'react';
 
 import useConnectStore from '../../../../stores/useConnectStore';
+import { IERC20TransactionData } from '../types';
 import { createERC20Contract } from '../utils';
 
 interface IPropsType {
-  amount: string;
+  txData: IERC20TransactionData;
   setAmount: (amount: string) => void;
-  tokenDecimal: string;
-  tokenAddress: string;
 }
 
-const InputAmount: FC<IPropsType> = ({ amount, setAmount, tokenAddress, tokenDecimal }) => {
+const InputAmount: FC<IPropsType> = ({ setAmount, txData }) => {
+  const { amount, tokenDecimal, tokenAddress } = txData;
+
   const { connector, account } = useConnectStore();
   const [loading, setIsLoading] = useState(false);
 
