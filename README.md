@@ -2,32 +2,20 @@
 
 These are the SDK examples which include
 
-## [Mavis Market SDK example](https://github.com/axieinfinity/mavis-marketplace-sdk)
+- [Mavis Market SDK example](https://github.com/axieinfinity/mavis-marketplace-sdk)
+- [Tanto Connect kit example](https://github.com/skymavis/tanto-kit)
 
-### Features
-
-- Show all collections (erc721 collections and erc1155 collections)
-- Show all tokens of a collections
-- Buy
-- Bulk buy erc1155 and erc721 tokens
-- Create order
-- Cancel order
-- Gift
-- Offer
-- Cancel offer
-- Accept offer
-- Swap ron/wron
 
 ## Requirements
 
 React 18 or later
 
-## Install
+## Setup
 
 ```bash
-yarn
+yarn setup
 # or
-npm install
+npm setup
 ```
 
 ## Run project
