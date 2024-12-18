@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "setup": "yarn install && yarn allow-scripts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,6 +11,8 @@
     "lint:fix": "eslint . --ext .js,.tsx,.ts --fix"
   },
   "dependencies": {
+    "@lavamoat/allow-scripts": "3.3.1",
+    "@lavamoat/preinstall-always-fail": "2.1.0",
     "@next/font": "14.2.1",
     "@nextui-org/react": "2.3.1",
     "@nextui-org/theme": "2.2.3",
@@ -58,5 +61,14 @@
   "resolutions": {
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "viem>ws>bufferutil": false,
+      "viem>ws>utf-8-validate": false,
+      "wagmi>@wagmi/connectors>cbw-sdk>keccak": false,
+      "yarn": false,
+      "@lavamoat/preinstall-always-fail": false
+    }
   }
 }
