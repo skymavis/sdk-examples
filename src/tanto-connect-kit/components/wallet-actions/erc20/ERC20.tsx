@@ -6,52 +6,64 @@ import useConnectStore from '../../../stores/useConnectStore';
 import ApproveToken from './approve-token/ApproveToken';
 import InputAmount from './input-amount/InputAmount';
 import SendToken from './send-token/SendToken';
+import { IERC20TransactionData } from './types';
 
 import styles from './ERC20.module.scss';
 
 const ERC20: FC = () => {
   const { chainId } = useConnectStore();
 
-  const [recipient, setRecipient] = React.useState(appConfigs.recipient);
-  const [amount, setAmount] = React.useState(appConfigs.amount);
-  const [tokenAddress, setTokenAddress] = useState(chainId ? appConfigs.erc20[chainId] : '');
-  const [tokenDecimal, setTokenDecimal] = useState('18');
+  const [txData, setTxData] = useState<IERC20TransactionData>({
+    recipient: appConfigs.recipient,
+    tokenAddress: chainId ? appConfigs.erc20[chainId] : '',
+    amount: appConfigs.amount,
+    tokenDecimal: '18',
+  });
 
   useEffect(() => {
     if (chainId && appConfigs.erc20[chainId]) {
-      setTokenAddress(appConfigs.erc20[chainId]);
+      setTxData(prv => ({ ...prv, tokenAddress: appConfigs.erc20[chainId], amount: prv.amount || appConfigs.amount }));
     } else {
-      setTokenAddress('');
-      setTokenDecimal('');
-      setAmount('');
+      setTxData(prv => ({
+        ...prv,
+        tokenAddress: '',
+        amount: '',
+        tokenDecimal: '18',
+      }));
     }
   }, [chainId]);
 
-  const handleDecimalChange = (value: string) => {
+  const handleDecimalChanged = (value: string) => {
     const numericValue = value.replace(/[^0-9.]/g, '');
-    setTokenDecimal(numericValue);
+    setTxData(prv => ({ ...prv, tokenDecimal: numericValue }));
+  };
+
+  const handleTokenAddressChanged = (value: string) => {
+    setTxData(prv => ({ ...prv, tokenAddress: value }));
+  };
+
+  const handleAmountChanged = (value: string) => {
+    setTxData(prv => ({ ...prv, amount: value }));
+  };
+
+  const handleRecipientChanged = (value: string) => {
+    setTxData(prv => ({ ...prv, recipient: value }));
   };
 
   return (
     <div className={styles.erc20} key={chainId}>
-      <Input onValueChange={setTokenAddress} label={'Token Address'} value={tokenAddress} radius={'sm'} />
-      <Input onValueChange={handleDecimalChange} type="number" label={'Token decimal'} value={tokenDecimal} />
-      <InputAmount amount={amount} setAmount={setAmount} tokenDecimal={tokenDecimal} tokenAddress={tokenAddress} />
-      <Input onValueChange={setRecipient} label={'Recipient'} value={recipient} radius={'sm'} />
-
-      <SendToken
-        tokenAddress={tokenAddress}
-        tokenDecimal={Number(tokenDecimal)}
-        amount={amount}
-        recipient={recipient}
+      <Input
+        value={txData.tokenAddress}
+        onValueChange={handleTokenAddressChanged}
+        label={'Token Address'}
+        radius={'sm'}
       />
+      <Input value={txData.tokenDecimal} onValueChange={handleDecimalChanged} type="number" label={'Token decimal'} />
+      <InputAmount setAmount={handleAmountChanged} txData={txData} />
+      <Input onValueChange={handleRecipientChanged} label={'Recipient'} value={txData.recipient} radius={'sm'} />
 
-      <ApproveToken
-        tokenAddress={tokenAddress}
-        tokenDecimal={Number(tokenDecimal)}
-        amount={amount}
-        recipient={recipient}
-      />
+      <SendToken txData={txData} />
+      <ApproveToken txData={txData} />
     </div>
   );
 };

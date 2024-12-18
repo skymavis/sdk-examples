@@ -5,6 +5,11 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  padding-top: 120px;
+
+  @media (max-width: 768px) {
+    padding-top: 60px;
+  }
 
   .connectors{
     padding: 16px 24px;

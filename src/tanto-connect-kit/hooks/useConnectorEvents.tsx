@@ -6,11 +6,6 @@ const useConnectorEvents = () => {
   const { setIsConnected, setAccount, setChainId } = useConnectStore();
 
   const onConnect = (payload: IConnectResult) => {
-    // Workaround for Ronin Wallet when it resolves even if the user rejects the request.
-    // TODO: Remove these three lines once the fixed ver of the Ronin Wallet is released.
-    if (!payload.account) {
-      return;
-    }
     setIsConnected(true);
     setAccount(payload.account);
     setChainId(payload.chainId);

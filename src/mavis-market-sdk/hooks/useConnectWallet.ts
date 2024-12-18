@@ -86,7 +86,7 @@ export const useConnectWallet = () => {
 
   const connectRoninMobile = async (autoConnect = false) => {
     try {
-      const connector = await requestRoninWalletConnectConnector(wcOptions);
+      const connector = await requestRoninWalletConnectConnector({ providerOptions: wcOptions });
       await handleConnect(connector, autoConnect, Number(chainIdFromConfig));
     } catch (error) {
       console.error(error);
