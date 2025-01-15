@@ -6,7 +6,7 @@ import Classes from './Typography.module.scss';
 interface TypographyProps {
   children: string | ReactNode;
   color?: 'gray' | 'warning' | 'danger';
-  size?: 'xSmall' | 'small' | 'medium' | 'large';
+  size?: 'xSmall' | 'small' | 'medium' | 'large' | 'xLarge';
   bold?: boolean;
   className?: string;
 }

@@ -1,0 +1,39 @@
+.logoGenerator {
+  min-height: 100vh;
+  width: 100%;
+  
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  .content {
+    display: flex;
+    width: 500px;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 32px;
+    text-align: center;
+  }
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .inputContainer {
+      label {
+        width: 100%;
+      }
+      .inputLabel{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        width: 100%;
+      }
+    }
+  }
+}
