@@ -21,6 +21,22 @@ const LpTokenLogoGenerator: FC = () => {
     token1Address !== token2Address &&
     !(token1IsRON && token2IsRON);
 
+  const drawRoundedImage = (
+    ctx: CanvasRenderingContext2D,
+    img: HTMLImageElement,
+    x: number,
+    y: number,
+    size: number,
+  ) => {
+    ctx.save(); // Save the canvas state
+    ctx.beginPath();
+    ctx.arc(x + size / 2, y + size / 2, size / 2, 0, 2 * Math.PI); // Circular clipping path
+    ctx.closePath();
+    ctx.clip(); // Apply clipping region
+    ctx.drawImage(img, x, y, size, size); // Draw the image
+    ctx.restore(); // Restore the canvas state
+  };
+
   const drawLogo = (e: any) => {
     e.preventDefault();
     if (!isValidInput) {
@@ -42,7 +58,7 @@ const LpTokenLogoGenerator: FC = () => {
       context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       const img = new Image();
       img.onload = function () {
-        context.drawImage(img, 0, 115, 282, 282);
+        drawRoundedImage(context, img, 0, 115, 282);
 
         context.globalCompositeOperation = 'destination-out';
         context.beginPath();
@@ -53,7 +69,7 @@ const LpTokenLogoGenerator: FC = () => {
 
         const img2 = new Image();
         img2.onload = function () {
-          context.drawImage(img2, 230, 115, 282, 282);
+          drawRoundedImage(context, img2, 230, 115, 282);
         };
         img2.onerror = e => {
           console.error(e);
