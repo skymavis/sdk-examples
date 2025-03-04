@@ -6,7 +6,6 @@ import { Currency, CurrencyAmount, Percent } from '@uniswap/sdk-core';
 import React, { forwardRef, ReactNode, useCallback, useState } from 'react';
 import ArrowDownIcon from 'src/icons/ArrowDownIcon';
 import { useGetWalletConnectData } from 'src/katana-swap-sdk/hooks/useGetWalletConnectData';
-import { formatNumber } from 'src/katana-swap-sdk/utils/formatNumber';
 
 import CurrencyLogo, { toValidLogoAddress } from '../currency-logo/CurrencyLogo';
 import { Input } from '../input';
@@ -93,7 +92,7 @@ const CurrencyInputPanel = forwardRef<HTMLInputElement, CurrencyInputPanelProps>
             </Skeleton>
           ) : (
             <Button
-              intent={currency ? 'neutral' : 'primary'}
+              color={currency ? 'default' : 'primary'}
               onClick={() => {
                 setModalOpen(true);
               }}
@@ -143,15 +142,15 @@ const CurrencyInputPanel = forwardRef<HTMLInputElement, CurrencyInputPanelProps>
           <div className={Class.BalanceDisplayCurrencyInputPanel}>
             {connectedAccount && (
               <>
-                <Typography size="small" color="gray" className={Class.Balance}>
+                <Typography size="xSmall" color="gray" className={Class.Balance}>
                   {renderBalance ? (
                     renderBalance(balance)
                   ) : (
-                    <>Balance: {balance === undefined ? '--' : formatNumber(balance?.toExact())}</>
+                    <>Balance: {balance === undefined ? '--' : balance?.toExact()}</>
                   )}
                 </Typography>
                 {showMaxButton && (
-                  <Link onClick={onMax} size="sm" style={{ fontWeight: 500 }}>
+                  <Link color="primary" onClick={onMax} size="md">
                     Max
                   </Link>
                 )}

@@ -1,0 +1,21 @@
+.popoverLayer {
+  width: 300px;
+  padding: 16px 20px 20px;
+
+  .settingRows {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+}
+
+.UserSettingTab {
+  flex-shrink: 0;
+}

@@ -1,7 +1,8 @@
-import { GetQuoteArgs, SwapRouterNativeAssets } from '@sky-mavis/katana-swap';
+import { GetQuoteArgs, QuoteIntent, SwapRouterNativeAssets } from '@sky-mavis/katana-swap';
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core';
 import { useMemo } from 'react';
 import { RouterPreference } from 'src/katana-swap-sdk/constants/enum';
+import { INTERNAL_ROUTER_PREFERENCE_PRICE } from 'src/katana-swap-sdk/constants/misc';
 
 import { useGetWalletConnectData } from '../useGetWalletConnectData';
 
@@ -19,19 +20,17 @@ function currencyAddressForSwapQuote(currency: Currency): string {
  * be destructured.
  */
 export function useRoutingAPIArguments({
-  account,
   tokenIn,
   tokenOut,
   amount,
   tradeType,
   routerPreference = RouterPreference.api,
 }: {
-  account?: string;
   tokenIn?: Currency;
   tokenOut?: Currency;
   amount?: CurrencyAmount<Currency>;
   tradeType: TradeType;
-  routerPreference: RouterPreference;
+  routerPreference: RouterPreference | typeof INTERNAL_ROUTER_PREFERENCE_PRICE;
 }): GetQuoteArgs | undefined {
   const { chainId } = useGetWalletConnectData();
   return useMemo(
@@ -39,19 +38,13 @@ export function useRoutingAPIArguments({
       !tokenIn || !tokenOut || !amount || tokenIn.equals(tokenOut) || tokenIn.wrapped.equals(tokenOut.wrapped)
         ? undefined
         : {
-            chainId: chainId,
-            amount: amount.quotient.toString(),
+            chainId: tokenIn.chainId,
             tokenInAddress: currencyAddressForSwapQuote(tokenIn),
-            tokenInChainId: tokenIn.chainId,
-            tokenInDecimals: tokenIn.wrapped.decimals,
-            tokenInSymbol: tokenIn.wrapped.symbol,
             tokenOutAddress: currencyAddressForSwapQuote(tokenOut),
-            tokenOutChainId: tokenOut.wrapped.chainId,
-            tokenOutDecimals: tokenOut.wrapped.decimals,
-            tokenOutSymbol: tokenOut.wrapped.symbol,
-            routerPreference,
+            amount: amount.quotient.toString(),
+            intent: routerPreference === INTERNAL_ROUTER_PREFERENCE_PRICE ? QuoteIntent.Pricing : QuoteIntent.Quote,
             tradeType,
           },
-    [tokenIn, tokenOut, amount, account, routerPreference, tradeType, chainId],
+    [tokenIn, tokenOut, amount, routerPreference, tradeType, chainId],
   );
 }

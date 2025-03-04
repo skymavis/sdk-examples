@@ -1,8 +1,11 @@
+import EmptyState from '@components/empty-state/EmptyState';
 import Typography from '@components/typography/Typography';
+import WillRender from '@components/will-render/WillRender';
 import { Chip, CircularProgress } from '@nextui-org/react';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core';
 import classNames from 'classnames';
-import { FC, memo } from 'react';
+import React, { FC, memo } from 'react';
 import { useGetWalletConnectData } from 'src/katana-swap-sdk/hooks/useGetWalletConnectData';
 import { formatNumber } from 'src/katana-swap-sdk/utils/formatNumber';
 
@@ -12,7 +15,7 @@ import Class from './CurrencyList.module.scss';
 
 export interface ICurrencyOptionList {
   currency: Currency | null;
-  balance: CurrencyAmount<Currency> | undefined;
+  balance?: CurrencyAmount<Currency> | undefined;
 }
 
 interface ICurrencyList {
@@ -20,6 +23,7 @@ interface ICurrencyList {
   onCurrencySelect: (currency: Currency) => void;
   srcId?: string;
   currencyOptionList: ICurrencyOptionList[] | undefined;
+  isFetchingBalance?: boolean;
 }
 
 interface ICurrencyRow {
@@ -28,6 +32,7 @@ interface ICurrencyRow {
   isSelected: boolean;
   srcId?: string;
   balance: CurrencyAmount<Currency> | undefined;
+  isFetchingBalance?: boolean;
 }
 
 function Balance({ balance }: { balance: CurrencyAmount<Currency> }) {
@@ -52,7 +57,7 @@ const CurrencyRowLabel: FC<{ currency: Currency }> = memo(({ currency }) => {
 });
 CurrencyRowLabel.displayName = 'CurrencyRowLabel';
 
-const CurrencyRow: FC<ICurrencyRow> = ({ currency, onSelect, isSelected, balance }) => {
+const CurrencyRow: FC<ICurrencyRow> = ({ currency, onSelect, isSelected, balance, isFetchingBalance }) => {
   const { connectedAccount } = useGetWalletConnectData();
 
   return (
@@ -72,7 +77,7 @@ const CurrencyRow: FC<ICurrencyRow> = ({ currency, onSelect, isSelected, balance
             <Chip>{currency.name}</Chip>
           ) : balance ? (
             <Balance balance={balance} />
-          ) : connectedAccount ? (
+          ) : connectedAccount && isFetchingBalance ? (
             <CircularProgress size="sm" className={Class.Loader} />
           ) : null}
         </div>
@@ -81,28 +86,68 @@ const CurrencyRow: FC<ICurrencyRow> = ({ currency, onSelect, isSelected, balance
   );
 };
 
-const CurrencyList: FC<ICurrencyList> = ({ selectedCurrency, onCurrencySelect, srcId, currencyOptionList }) => {
-  return (
-    <div className={Class.CurrencyList}>
-      {currencyOptionList?.map(({ currency, balance }, index) => {
-        const isSelected = Boolean(currency && selectedCurrency && selectedCurrency.equals(currency));
-        const handleSelect = () => currency && onCurrencySelect(currency);
+const CurrencyList: FC<ICurrencyList> = ({
+  selectedCurrency,
+  onCurrencySelect,
+  srcId,
+  currencyOptionList,
+  isFetchingBalance,
+}) => {
+  const isEmpty = !currencyOptionList || currencyOptionList?.length === 0;
 
-        if (currency) {
-          return (
-            <CurrencyRow
-              key={`Currency-row-${index}`}
-              srcId={srcId}
-              currency={currency}
-              isSelected={isSelected}
-              onSelect={handleSelect}
-              balance={balance}
-            />
-          );
-        } else {
-          return null;
-        }
-      })}
+  const parentRef = React.useRef(null);
+  const rowVirtualizer = useVirtualizer({
+    enabled: !isEmpty,
+    count: currencyOptionList?.length ?? 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 56,
+    overscan: 3,
+  });
+
+  return (
+    <div className={Class.CurrencyList} ref={parentRef}>
+      <WillRender when={isEmpty}>
+        <EmptyState text={'No token found'} />
+      </WillRender>
+      <WillRender when={!isEmpty}>
+        <div
+          style={{
+            height: `${rowVirtualizer.getTotalSize()}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {rowVirtualizer.getVirtualItems().map(virtualRow => {
+            const { currency, balance } = currencyOptionList?.[virtualRow.index] ?? {};
+            if (!currency) return null;
+
+            const isSelected = Boolean(currency && selectedCurrency && selectedCurrency.equals(currency));
+
+            return (
+              <div
+                key={virtualRow.index}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: `${virtualRow.size}px`,
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+              >
+                <CurrencyRow
+                  srcId={srcId}
+                  currency={currency}
+                  isSelected={isSelected}
+                  onSelect={() => onCurrencySelect(currency)}
+                  balance={balance}
+                  isFetchingBalance={isFetchingBalance}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </WillRender>
     </div>
   );
 };

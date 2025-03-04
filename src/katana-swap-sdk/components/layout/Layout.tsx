@@ -11,10 +11,16 @@ interface LayoutProps {
   children: ReactNode;
 }
 
+const CONNECT_WALLET_MODAL_ID = 'connect-wallet-modal';
+
+export const useDisclosureForConnectWallet = () => {
+  return useDisclosure({ id: CONNECT_WALLET_MODAL_ID });
+};
+
 const Layout: FC<LayoutProps> = props => {
   const { children } = props;
 
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosureForConnectWallet();
 
   const { reconnectWallet } = useConnectWallet();
 

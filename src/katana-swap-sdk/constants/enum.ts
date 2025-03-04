@@ -21,7 +21,20 @@ enum RouterPreference {
   price = 'price',
 }
 
-export enum ReactQueryKey {
+enum WrapType {
+  NOT_APPLICABLE,
+  WRAP,
+  UNWRAP,
+}
+
+enum TransactionState {
+  Waiting = 'Waiting',
+  Submitted = 'Submitted',
+  Successful = 'Successful',
+  Fail = 'Fail',
+}
+
+enum ReactQueryKey {
   // Token
   TOKEN_ALLOWANCE = 'TOKEN_ALLOWANCE',
   PERMIT_ALLOWANCE = 'PERMIT_ALLOWANCE',
@@ -30,10 +43,10 @@ export enum ReactQueryKey {
   GET_QUOTE = 'GET_QUOTE',
 
   // other
-  GET_RON_IN_USD_PRICE = 'GET_RON_IN_USD_PRICE',
+  GET_PYTH_RON_PRICE = 'GET_PYTH_RON_PRICE',
+  GET_TOKEN_QUOTE_PRICE = 'GET_TOKEN_QUOTE_PRICE',
   USER_TOKEN_BALANCES = 'USER_TOKEN_BALANCES',
   RON_BALANCE = 'RON_BALANCE',
-  TOKEN_NONCE_STATE = 'TOKEN_NONCE_STATE',
 }
 
-export { Field, QuoteState, RouterPreference, TradeState };
+export { Field, QuoteState, ReactQueryKey, RouterPreference, TradeState, TransactionState, WrapType };

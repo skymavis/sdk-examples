@@ -1,0 +1,77 @@
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .column {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .columnWithSmallGap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
+
+.layerTooltip {
+  max-width: 280px;
+}
+
+.PriceImpact-1,
+.PriceImpact-2 {
+  color: get-token-value(text-warning);
+}
+
+.PriceImpact-3,
+.PriceImpact-4 {
+  color: get-token-value(text-critical);
+}
+
+.highPriceImpact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid get-token-value(border-critical);
+  border-radius: 8px;
+
+  background: get-token-value(surface-critical);
+
+  > svg {
+    color: get-token-value(text-critical);
+  }
+}
+
+.tooltipFeeContent {
+  margin-bottom: 8px;
+}
+
+.tooltipContentRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:first-child) {
+    margin-top: 2px;
+  }
+}

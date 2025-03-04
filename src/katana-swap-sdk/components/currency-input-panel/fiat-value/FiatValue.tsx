@@ -12,27 +12,12 @@ export function FiatValue({
   fiatValue: string | number | undefined;
   priceImpact?: Percent;
 }) {
-  // const priceImpactColor = useMemo(() => {
-  //   if (!priceImpact) return undefined;
-  //   if (priceImpact.lessThan('0')) return 'var(--dg-tc-text-success)';
-  //   const severity = warningSeverity(priceImpact);
-  //   if (severity < 1) return 'var(--dg-tc-text-disabled)';
-  //   if (severity < 3) return 'var(--dg-tc-text-warning)';
-  //   return 'var(--dg-tc-text-critical)';
-  // }, [priceImpact]);
-
   if (!fiatValue) return null;
 
   return (
-    <Typography size="small" color="gray" className={Class.FiatValue}>
-      {priceImpact ? (
-        <Typography
-          color="gray"
-          //  style={{ color: priceImpactColor, display: 'inline', marginRight: 4 }}
-        >
-          {`(~${priceImpact.multiply(-1).toSignificant(3)}%)`}
-        </Typography>
-      ) : null}
+    <Typography size="xSmall" color="gray" className={Class.FiatValue}>
+      {priceImpact ? <Typography color="gray">{`(~${priceImpact.multiply(-1).toSignificant(3)}%)`}</Typography> : null}
+      {'$'}
       {formatNumber(fiatValue)}
     </Typography>
   );

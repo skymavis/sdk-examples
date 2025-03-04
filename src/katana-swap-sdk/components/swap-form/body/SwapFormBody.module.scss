@@ -1,0 +1,15 @@
+.container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    .switchBtn {
+        position: absolute;
+        background-color: #15181e;
+        border: 3px solid #272b34;
+        border-radius: 8px;
+    }
+}

@@ -4,6 +4,7 @@ import React from 'react';
 import Layout from 'src/katana-swap-sdk/components/layout/Layout';
 import SwapForm from 'src/katana-swap-sdk/components/swap-form/SwapForm';
 import GlobalDataStoreUpdater from 'src/katana-swap-sdk/components/updaters/GlobalDataStoreUpdater';
+import { SwapContextProvider } from 'src/katana-swap-sdk/context/SwapContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,10 +18,12 @@ const queryClient = new QueryClient({
 const KatanaSwapSDKPage: NextPage = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Layout>
-        <GlobalDataStoreUpdater />
-        <SwapForm />
-      </Layout>
+      <SwapContextProvider>
+        <Layout>
+          <GlobalDataStoreUpdater />
+          <SwapForm />
+        </Layout>
+      </SwapContextProvider>
     </QueryClientProvider>
   );
 };

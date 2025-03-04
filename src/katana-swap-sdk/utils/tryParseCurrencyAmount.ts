@@ -2,7 +2,7 @@ import { parseUnits } from '@ethersproject/units';
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core';
 import JSBI from 'jsbi';
 
-function truncateValue(value: string, decimals: number): string {
+export function truncateValue(value: string, decimals: number): string {
   const parts = value.split(/[.,]/);
   const symbol = value.includes('.') ? '.' : ',';
   if (parts.length > 1 && parts[1].length > decimals) {

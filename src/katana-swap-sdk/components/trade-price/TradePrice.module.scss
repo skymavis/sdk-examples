@@ -1,0 +1,18 @@
+.Container {
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  &.TradePrice {
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  &.PoolPrice {
+    gap: 16px;
+  }
+}
+
+.Button {
+  padding: 6px;
+}

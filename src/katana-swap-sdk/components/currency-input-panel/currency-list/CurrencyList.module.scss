@@ -88,9 +88,12 @@
 }
 
 .CurrencyList {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  max-height: 60vh;
+  overflow: auto;
+
+  @media (max-width: 768px) {
+    max-height: 100vh;
+  }
 }
 
 .Loader {

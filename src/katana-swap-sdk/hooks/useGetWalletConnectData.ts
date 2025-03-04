@@ -21,11 +21,9 @@ export const useGetWalletConnectData = () => {
     }
 
     const web3Provider = new ethers.providers.Web3Provider(walletProvider as ExternalProvider);
-    const signer = web3Provider?.getSigner();
 
     return {
-      provider: signer,
-      signer: signer,
+      provider: web3Provider,
       account: connectedAccount?.toLowerCase(),
     };
   }, [walletProvider, connectedAccount]);

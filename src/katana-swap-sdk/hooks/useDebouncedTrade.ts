@@ -1,10 +1,34 @@
-import { DEFAULT_ERC20, KatanaTrade } from '@sky-mavis/katana-swap';
+import { DEFAULT_ERC20 } from '@sky-mavis/katana-swap';
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { RouterPreference, TradeState } from '../constants/enum';
-import { useRoutingAPITrade } from './routing-api/useRoutingAPITrade';
+import { RouterPreference } from '../constants/enum';
+import { IRoutingAPIResponse, useRoutingAPITrade } from './routing-api/useRoutingAPITrade';
 import { useGetWalletConnectData } from './useGetWalletConnectData';
+
+// modified from https://usehooks.com/useDebounce/
+function useDebounceValue<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    // Update debounced value after delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    // Cancel the timeout if value changes (also on delay change or unmount)
+    // This is how we prevent debounced value from updating if value is changed ...
+    // .. within the delay period. Timeout gets cleared and restarted.
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+// Prevents excessive quote requests between keystrokes.
+const DEBOUNCE_TIME = 350;
 
 /**
  * Returns the debounced v2+v3 trade for a desired swap.
@@ -18,19 +42,16 @@ export function useDebouncedTrade({
   tradeType,
   amountSpecified,
   otherCurrency,
-  account,
   skipFetch = false,
 }: {
   tradeType: TradeType;
   amountSpecified?: CurrencyAmount<Currency>;
   otherCurrency?: Currency;
-  account?: string;
   skipFetch?: boolean;
-}): {
-  state: TradeState;
-  trade?: KatanaTrade;
-} {
+}): IRoutingAPIResponse {
   const { chainId } = useGetWalletConnectData();
+
+  const isDebouncingTyping = useDebounceValue(amountSpecified?.toExact(), DEBOUNCE_TIME) !== amountSpecified?.toExact();
 
   const isWrap = useMemo(() => {
     if (!chainId || !amountSpecified || !otherCurrency) {
@@ -43,14 +64,14 @@ export function useDebouncedTrade({
     );
   }, [amountSpecified, chainId, otherCurrency]);
 
-  const skipRoutingFetch = isWrap || skipFetch;
+  const skipRoutingFetch = isWrap || isDebouncingTyping || skipFetch;
+
   const routingApiTradeResult = useRoutingAPITrade(
-    skipRoutingFetch,
     tradeType,
     amountSpecified,
     otherCurrency,
     RouterPreference.api,
-    account,
+    skipRoutingFetch,
   );
   return routingApiTradeResult;
 }

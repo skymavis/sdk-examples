@@ -9,7 +9,7 @@ export function useSwapActionHandlers(): {
   onSwitchTokens: () => void;
   onUserInput: (field: Field, typedValue: string) => void;
 } {
-  const { selectCurrency, switchCurrencies, setTypingInput, INPUT, OUTPUT } = useSwapStore();
+  const { selectCurrency, switchCurrencies, setTypingInput, INPUT, OUTPUT, setTypedInput } = useSwapStore();
 
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
@@ -19,6 +19,8 @@ export function useSwapActionHandlers(): {
         field,
         currencyId: currencyId,
       });
+      setTypedInput({ field, typedValue: '' });
+      setTypingInput({ field, typingValue: '' });
     },
     [INPUT, OUTPUT, selectCurrency],
   );
