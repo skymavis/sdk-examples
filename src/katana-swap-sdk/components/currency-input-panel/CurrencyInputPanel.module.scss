@@ -1,0 +1,67 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #15181e;
+  border: 1px solid #272b34;
+  min-height: 112px;
+  width: 100%;
+}
+
+.CurrencyInputSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.CurrencySelectBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.SkeletonButtonSelectToken{
+  height: 36px;
+  border-radius: 10px;
+  width: 80px;
+}
+
+.BalanceDisplayCurrencyInputPanel {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.Balance {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.FiatValueWrapper {
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.TextSelectToken {
+  font-weight: 500;
+}
+
+[data-is-wallet-swap="true"] {
+  .Container {
+    padding: 16px;
+    background-color: var(--dg-tc-sf-neutral);
+    gap: 6px;
+  }
+
+  .TextSelectToken {
+    color: #15181e;
+  }
+}

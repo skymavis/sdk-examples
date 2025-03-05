@@ -1,0 +1,9 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .skeletonContainer {
+    display: inline-flex;
+  }
+}

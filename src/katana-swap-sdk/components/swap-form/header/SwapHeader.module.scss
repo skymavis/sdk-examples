@@ -1,0 +1,25 @@
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.RightSection {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expertModeBtn{
+  display: flex;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  background: rgba(151, 17, 39, 0.30);
+
+  /* Utility/Background blur */
+  backdrop-filter: blur(12.5px);
+}

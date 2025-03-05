@@ -1,0 +1,19 @@
+.layerTooltip {
+  width: 320px;
+}
+
+.customSlippage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+  .tabContainer {
+    flex-shrink: 0;
+    :global {
+      .dango-tabs-content-holder {
+        display: none;
+      }
+    }
+  }
+}

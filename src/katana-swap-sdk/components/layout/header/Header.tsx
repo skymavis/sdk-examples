@@ -5,10 +5,8 @@ import { isNil } from 'lodash';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import WillRender from 'src/components/will-render/WillRender';
+import { useConnectorStore } from 'src/mavis-market-sdk/components/layout/connectors/stores/useConnectorStore';
 import { truncateAddress } from 'src/mavis-market-sdk/utils/addressUtil';
-
-import CartButton from '../../cart-button/CartButton';
-import { useConnectorStore } from '../connectors/stores/useConnectorStore';
 
 import Classes from './Header.module.scss';
 
@@ -31,10 +29,6 @@ const Header: FC<HeaderProps> = props => {
       connector?.disconnect();
       return;
     }
-    if (key === 'inventory') {
-      router.push('/mavis-market-sdk/inventory');
-      return;
-    }
   };
 
   return (
@@ -42,7 +36,7 @@ const Header: FC<HeaderProps> = props => {
       <div className={Classes.content}>
         <div className={Classes.logo} onClick={onRedirectToHomepage}>
           <img src="https://cdn.skymavis.com/skymavis-home/public/homepage/core-value.png" width={40} />
-          <Typography className={Classes.title}>New Mavis Market</Typography>
+          <Typography className={Classes.title}>Katana Swap</Typography>
         </div>
         <div className={Classes.actions}>
           <WillRender when={isNil(connectedAccount)}>
@@ -51,13 +45,11 @@ const Header: FC<HeaderProps> = props => {
             </Button>
           </WillRender>
           <WillRender when={!isNil(connectedAccount)}>
-            <CartButton />
             <Dropdown>
               <DropdownTrigger>
                 <Button variant="bordered">{truncateAddress(connectedAccount as string)}</Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions" onAction={key => handleSelectMenu(key as string)}>
-                <DropdownItem key="inventory">Inventory</DropdownItem>
                 <DropdownItem key="disconnect" className="text-danger" color="danger">
                   Disconnect
                 </DropdownItem>

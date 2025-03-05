@@ -1,0 +1,65 @@
+.tooltipLayer {
+  max-width: 400px;
+  min-width: 300px;
+
+  .swapRouteWrapper {
+    width: 100%;
+
+    .routeLine {
+      display: grid;
+      grid-template-columns: 20px 1fr 20px;
+      align-items: center;
+      justify-items: center;
+      padding: 8px 0;
+
+      .routeEntry {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+        padding: 0 8px;
+
+        .dottedLine {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          width: calc(100%);
+          border: 0;
+          border-top: 2px dashed #272b34;
+        }
+
+        .badgePoolVersionAndAmount {
+          backdrop-filter: blur(12.5px);
+          .badgeContent{
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+        }
+
+        .poolWrapper {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 100%;
+
+          .badgeContainer {
+            backdrop-filter: blur(12.5px);
+            .badgePool {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    margin-top: 12px;
+  }
+}

@@ -18,4 +18,10 @@ export const examplesData = [
     title: 'LP Token Logo Generator',
     description: 'This example shows how to generate an LP token logo.',
   },
+  {
+    id: 'katana-swap-sdk',
+    path: '/katana-swap-sdk',
+    title: 'Katana Swap SDK',
+    description: 'This example shows how to use Katana Swap SDK to easily interact with the Katana V3.',
+  },
 ];
