@@ -4,7 +4,7 @@ These are the SDK examples which include
 
 - [Mavis Market SDK example](https://github.com/axieinfinity/mavis-marketplace-sdk)
 - [Tanto Connect kit example](https://github.com/skymavis/tanto-kit)
-
+- [Katana SDK example](https://github.com/skymavis/katana-sdk)
 
 ## Requirements
 
