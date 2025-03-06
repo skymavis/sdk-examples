@@ -15,7 +15,7 @@ React 18 or later
 ```bash
 yarn setup
 # or
-npm setup
+npm run setup
 ```
 
 ## Run project
