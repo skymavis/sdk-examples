@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "setup": "yarn install && yarn allow-scripts",
+    "setup": "yarn install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -74,13 +74,4 @@
     "@uniswap/v3-sdk": "3.13.0",
     "@uniswap/router-sdk": "1.9.2"
   },
-  "lavamoat": {
-    "allowScripts": {
-      "viem>ws>bufferutil": false,
-      "viem>ws>utf-8-validate": false,
-      "wagmi>@wagmi/connectors>cbw-sdk>keccak": false,
-      "yarn": false,
-      "@lavamoat/preinstall-always-fail": false
-    }
-  }
 }
