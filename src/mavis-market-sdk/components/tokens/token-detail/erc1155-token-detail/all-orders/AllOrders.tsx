@@ -51,7 +51,7 @@ const AllOrders: FC<AllOrdersProps> = props => {
           ))}
         </div>
       </WillRender>
-      <WillRender when={isEmpty(orders)}>No offers found</WillRender>
+      <WillRender when={isEmpty(orders)}>No orders found</WillRender>
     </div>
   );
 };
