@@ -1,4 +1,4 @@
-import { CollectionData, Erc, Erc1155Token, getOrdersByAddress, Order } from '@sky-mavis/mavis-market-core';
+import { CollectionData, Erc, Erc1155Token, getErc1155Orders, Order } from '@sky-mavis/mavis-market-core';
 import { isNil } from 'lodash';
 import { FC, useEffect, useState } from 'react';
 import Typography from 'src/components/typography/Typography';
@@ -30,15 +30,13 @@ const OwnerActions: FC<OwnerActionsProps> = props => {
   const onGetMyOrder = async () => {
     try {
       if (!isNil(connectedAccount)) {
-        const { data } = await getOrdersByAddress({
+        const data = await getErc1155Orders({
           chainId,
-          account: connectedAccount,
           from: 0,
-          size: 4,
-          collectibleFilters: {
-            tokenAddresses: [tokenAddress],
-            erc: Erc.Erc1155,
-          },
+          size: 1,
+          tokenAddress,
+          tokenId,
+          maker: connectedAccount,
         });
 
         const myOrder = data?.[0];
